@@ -14,15 +14,22 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <iterator>
 #include <fstream>
 #include <iostream>
 #include <algorithm>
 #include "GraphElements.h"
 #include "Graph.h"
+#include <Rcpp.h>
 
 
 const double Graph::DISCONNECT = (numeric_limits<double>::max)();
 
+
+Graph::Graph( const int& vertex_num, const std::vector<int>& start_vertices, const std::vector<int>& end_vertices, const std::vector<double>& edge_weights)
+{
+	_create_from_R(vertex_num, start_vertices, end_vertices, edge_weights);
+}
 
 Graph::Graph( const string& file_name )
 {
@@ -43,6 +50,70 @@ Graph::Graph( const Graph& graph )
 Graph::~Graph(void)
 {
 	clear();
+}
+
+
+void Graph::_create_from_R(const int& vertex_num, const std::vector<int>& start_vertices, const std::vector<int>& end_vertices, const std::vector<double>& edge_weights)
+{
+	//1. Reset the members of the class
+	clear();
+
+	//2. Assign to expected variables. 
+	//2.1 The first line has an integer as the number of vertices of the graph
+	int m_nVertexNum = vertex_num;
+
+	//2.2 Here, we generate iterators for our three parallel vectors
+	auto start_it = start_vertices.begin();
+	auto end_it = end_vertices.begin();
+	auto weight_it = edge_weights.begin();
+
+	int start_vertex, end_vertex;
+	double edge_weight;
+	int vertex_id = 0;
+
+	// Continue iterating while the start iterator is not at the end
+	while(start_it != start_vertices.end())
+	{
+		// Extract values from iterators
+		start_vertex = *start_it;
+		if (start_vertex == -1)
+		{
+			break;
+		}
+		end_vertex = *end_it;
+		edge_weight = *weight_it;
+
+		// Increment iterators
+		++start_it;
+		++end_it;
+		++weight_it;
+
+		///3.2.1 construct the vertices
+		BaseVertex* start_vertex_pt = get_vertex(start_vertex);
+		BaseVertex* end_vertex_pt = get_vertex(end_vertex);
+
+		///3.2.2 add the edge weight
+		//// note that the duplicate edge would overwrite the one occurring before. 
+		m_mpEdgeCodeWeight[get_edge_code(start_vertex_pt, end_vertex_pt)] = edge_weight;
+
+		///3.2.3 update the fan-in or fan-out variables
+		//// Fan-in
+		get_vertex_set_pt(end_vertex_pt, m_mpFaninVertices)->insert(start_vertex_pt);
+
+		//// Fan-out
+		get_vertex_set_pt(start_vertex_pt, m_mpFanoutVertices)->insert(end_vertex_pt);
+
+	}	
+
+	if(m_nVertexNum != m_vtVertices.size())
+	{
+		cerr << "The number of nodes in the graph is "<<  m_vtVertices.size() << " instead of " << m_nVertexNum << endl;
+		exit(1);
+	}
+
+	m_nVertexNum = m_vtVertices.size();
+	m_nEdgeNum = m_mpEdgeCodeWeight.size();
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

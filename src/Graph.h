@@ -111,4 +111,6 @@ public:
 private:
 	void _import_from_file(const std::string& file_name);
 
+	void _create_from_R(const int& vertex_num, const std::vector<int>& start_vertices, const std::vector<int>& end_vertices, const std::vector<double>& edge_weights);
+
 };
