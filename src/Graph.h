@@ -60,6 +60,10 @@ protected: // members
 public:
 
 	// Constructors and Destructor
+	Graph(const int& vertex_num,
+	      const vector<int>& start_vertices,
+	      const vector<int>& end_vertices,
+	      const vector<double>& edge_weights);
 	Graph(const string& file_name);
 	Graph(const Graph& rGraph);
 	~Graph(void);

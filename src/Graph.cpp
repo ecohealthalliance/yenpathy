@@ -26,7 +26,10 @@
 const double Graph::DISCONNECT = (numeric_limits<double>::max)();
 
 
-Graph::Graph( const int& vertex_num, const std::vector<int>& start_vertices, const std::vector<int>& end_vertices, const std::vector<double>& edge_weights)
+Graph::Graph(const int& vertex_num,
+             const std::vector<int>& start_vertices,
+             const std::vector<int>& end_vertices,
+             const std::vector<double>& edge_weights)
 {
 	_create_from_R(vertex_num, start_vertices, end_vertices, edge_weights);
 }
@@ -53,7 +56,10 @@ Graph::~Graph(void)
 }
 
 
-void Graph::_create_from_R(const int& vertex_num, const std::vector<int>& start_vertices, const std::vector<int>& end_vertices, const std::vector<double>& edge_weights)
+void Graph::_create_from_R(const int& vertex_num,
+                           const std::vector<int>& start_vertices,
+                           const std::vector<int>& end_vertices,
+                           const std::vector<double>& edge_weights)
 {
 	//1. Reset the members of the class
 	clear();
@@ -69,7 +75,7 @@ void Graph::_create_from_R(const int& vertex_num, const std::vector<int>& start_
 
 	int start_vertex, end_vertex;
 	double edge_weight;
-	int vertex_id = 0;
+	// int vertex_id = 0;
 
 	// Continue iterating while the start iterator is not at the end
 	while(start_it != start_vertices.end())
@@ -159,7 +165,7 @@ void Graph::_import_from_file( const string& input_file_name )
 	///   These values are separated by 'white space'. 
 	int start_vertex, end_vertex;
 	double edge_weight;
-	int vertex_id = 0;
+	// int vertex_id = 0;
 
 	while(ifs >> start_vertex)
 	{
