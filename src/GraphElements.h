@@ -166,7 +166,7 @@ public:
 		{
 			int id = (*pos)->getID();
 			pathstr.append(std::to_string(id));
-			pathstr.append(",");
+			pathstr.append(","); // FIXME: We shouldn't have a comma on the end
 		}
 		return(pathstr);
 	}
