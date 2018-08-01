@@ -26,12 +26,10 @@
 const double Graph::DISCONNECT = (numeric_limits<double>::max)();
 
 
-Graph::Graph(const int& vertex_num,
-             const std::vector<int>& start_vertices,
-             const std::vector<int>& end_vertices,
-             const std::vector<double>& edge_weights)
+Graph::Graph(const Rcpp::IntegerVector& vertex_num,
+             const Rcpp::DataFrame& graph_df)
 {
-	_create_from_R(vertex_num, start_vertices, end_vertices, edge_weights);
+	_create_from_R(vertex_num, graph_df);
 }
 
 Graph::Graph( const string& file_name )
@@ -56,43 +54,36 @@ Graph::~Graph(void)
 }
 
 
-void Graph::_create_from_R(const int& vertex_num,
-                           const std::vector<int>& start_vertices,
-                           const std::vector<int>& end_vertices,
-                           const std::vector<double>& edge_weights)
+void Graph::_create_from_R(const Rcpp::IntegerVector& vertex_num,
+           				   const Rcpp::DataFrame& graph_df)
 {
 	//1. Reset the members of the class
 	clear();
 
 	//2. Assign to expected variables. 
 	//2.1 The first line has an integer as the number of vertices of the graph
-	int m_nVertexNum = vertex_num;
+	int m_nVertexNum = Rcpp::as<int>(vertex_num);
 
-	//2.2 Here, we generate iterators for our three parallel vectors
-	auto start_it = start_vertices.begin();
-	auto end_it = end_vertices.begin();
-	auto weight_it = edge_weights.begin();
+	// Define our DataFrame vectors
+	Rcpp::IntegerVector start_vertices = graph_df[0];
+	Rcpp::IntegerVector end_vertices = graph_df[1];
+	Rcpp::NumericVector edge_weights = graph_df[2];
 
+	// Define our variables
 	int start_vertex, end_vertex;
 	double edge_weight;
-	// int vertex_id = 0;
 
 	// Continue iterating while the start iterator is not at the end
-	while(start_it != start_vertices.end())
+	for(int i = 0; i < graph_df.nrows(); i++)
 	{
 		// Extract values from iterators
-		start_vertex = *start_it;
+		start_vertex = start_vertices[i];
 		if (start_vertex == -1)
 		{
 			break;
 		}
-		end_vertex = *end_it;
-		edge_weight = *weight_it;
-
-		// Increment iterators
-		++start_it;
-		++end_it;
-		++weight_it;
+		end_vertex = end_vertices[i];
+		edge_weight = edge_weights[i];
 
 		///3.2.1 construct the vertices
 		BaseVertex* start_vertex_pt = get_vertex(start_vertex);

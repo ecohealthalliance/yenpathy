@@ -156,4 +156,20 @@ public:
 		}
 		out_stream << std::endl <<  "*********************************************" << std::endl;
 	}
+
+	std::string PathString()
+	{
+		std::string pathstr;
+		for(std::vector<BaseVertex*>::const_iterator pos=m_vtVertexList.begin();
+		    pos!=m_vtVertexList.end();
+		    ++pos)
+		{
+			int id = (*pos)->getID();
+			pathstr.append(std::to_string(id));
+			pathstr.append(",");
+		}
+		return(pathstr);
+	}
+
+
 };

@@ -9,6 +9,7 @@
 ///  $Id: Graph.h 65 2010-09-08 06:48:36Z yan.qi.asu $
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <Rcpp.h>
 
 #pragma once
 
@@ -60,10 +61,8 @@ protected: // members
 public:
 
 	// Constructors and Destructor
-	Graph(const int& vertex_num,
-	      const vector<int>& start_vertices,
-	      const vector<int>& end_vertices,
-	      const vector<double>& edge_weights);
+	Graph(const Rcpp::IntegerVector& vertex_num,
+          const Rcpp::DataFrame& graph_df);
 	Graph(const string& file_name);
 	Graph(const Graph& rGraph);
 	~Graph(void);
@@ -115,6 +114,7 @@ public:
 private:
 	void _import_from_file(const std::string& file_name);
 
-	void _create_from_R(const int& vertex_num, const std::vector<int>& start_vertices, const std::vector<int>& end_vertices, const std::vector<double>& edge_weights);
+	void _create_from_R(const Rcpp::IntegerVector& vertex_num,
+           				const Rcpp::DataFrame& graph_df);
 
 };
