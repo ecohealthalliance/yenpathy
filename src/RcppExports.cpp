@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // k_shortest_paths
-Rcpp::CharacterVector k_shortest_paths(Rcpp::IntegerVector start_vertex, Rcpp::IntegerVector end_vertex, Rcpp::IntegerVector k, Rcpp::IntegerVector vertex_num, Rcpp::DataFrame graph_df);
-RcppExport SEXP _yenpathy_k_shortest_paths(SEXP start_vertexSEXP, SEXP end_vertexSEXP, SEXP kSEXP, SEXP vertex_numSEXP, SEXP graph_dfSEXP) {
+Rcpp::CharacterVector k_shortest_paths(Rcpp::IntegerVector start_vertex, Rcpp::IntegerVector end_vertex, Rcpp::IntegerVector k, Rcpp::IntegerVector vertex_num, Rcpp::DataFrame graph_df, bool verbose);
+RcppExport SEXP _yenpathy_k_shortest_paths(SEXP start_vertexSEXP, SEXP end_vertexSEXP, SEXP kSEXP, SEXP vertex_numSEXP, SEXP graph_dfSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -16,7 +16,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type k(kSEXP);
     Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type vertex_num(vertex_numSEXP);
     Rcpp::traits::input_parameter< Rcpp::DataFrame >::type graph_df(graph_dfSEXP);
-    rcpp_result_gen = Rcpp::wrap(k_shortest_paths(start_vertex, end_vertex, k, vertex_num, graph_df));
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(k_shortest_paths(start_vertex, end_vertex, k, vertex_num, graph_df, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -36,7 +37,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_yenpathy_k_shortest_paths", (DL_FUNC) &_yenpathy_k_shortest_paths, 5},
+    {"_yenpathy_k_shortest_paths", (DL_FUNC) &_yenpathy_k_shortest_paths, 6},
     {"_yenpathy_shortest_path", (DL_FUNC) &_yenpathy_shortest_path, 4},
     {NULL, NULL, 0}
 };
