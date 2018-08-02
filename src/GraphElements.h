@@ -171,5 +171,17 @@ public:
 		return(pathstr);
 	}
 
+	std::vector<int> PathVector()
+	{
+		std::vector<int> pathvec;
+		for(std::vector<BaseVertex*>::const_iterator pos=m_vtVertexList.begin();
+		    pos!=m_vtVertexList.end();
+		    ++pos)
+		{
+			int id = (*pos)->getID();
+			pathvec.push_back(id);
+		}
+		return(pathvec);
+	}
 
 };

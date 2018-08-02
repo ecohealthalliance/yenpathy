@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 // k_shortest_paths
-Rcpp::CharacterVector k_shortest_paths(Rcpp::IntegerVector start_vertex, Rcpp::IntegerVector end_vertex, Rcpp::IntegerVector k, Rcpp::IntegerVector vertex_num, Rcpp::DataFrame graph_df, bool verbose);
+Rcpp::List k_shortest_paths(Rcpp::IntegerVector start_vertex, Rcpp::IntegerVector end_vertex, Rcpp::IntegerVector k, Rcpp::IntegerVector vertex_num, Rcpp::DataFrame graph_df, bool verbose);
 RcppExport SEXP _yenpathy_k_shortest_paths(SEXP start_vertexSEXP, SEXP end_vertexSEXP, SEXP kSEXP, SEXP vertex_numSEXP, SEXP graph_dfSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

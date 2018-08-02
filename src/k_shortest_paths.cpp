@@ -24,7 +24,7 @@ using namespace std;
 
 // Roxygen comments go here
 // [[Rcpp::export]]
-Rcpp::CharacterVector k_shortest_paths(Rcpp::IntegerVector start_vertex,
+Rcpp::List k_shortest_paths(Rcpp::IntegerVector start_vertex,
                                        Rcpp::IntegerVector end_vertex,
                                        Rcpp::IntegerVector k,
                                        Rcpp::IntegerVector vertex_num,
@@ -48,21 +48,20 @@ Rcpp::CharacterVector k_shortest_paths(Rcpp::IntegerVector start_vertex,
 	                               my_graph.get_vertex(end_vertex_));
 
 	int i = 0;
-	string path_str;
-	vector<string> results;
+	vector<int> path_vec;
+	vector<vector<int> > results;
 	while(yenAlg.has_next() && i < k_)
 	{
 		++i;
 		BasePath* path = yenAlg.next();
-		path_str = path->PathString();
-		results.push_back(path_str);
+		path_vec = path->PathVector();
+		results.push_back((path_vec));
 
 
 		// path->PrintOut(Rcpp::Rcout);
 		// Rcpp::Rcout << "This path is (str): " << path_str << std::endl;
 
 	}
-
 	return(Rcpp::wrap(results));
 
 
