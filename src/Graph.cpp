@@ -57,14 +57,13 @@ Graph::~Graph(void)
 void Graph::_create_from_R(const Rcpp::IntegerVector& vertex_num,
            				   const Rcpp::DataFrame& graph_df)
 {
-	Rcpp::Rcout << "Constructing graph..." << std::endl;
 
 	//1. Reset the members of the class
 	clear();
 
 	//2. Assign to expected variables. 
 	//2.1 The first line has an integer as the number of vertices of the graph
-	int m_nVertexNum = Rcpp::as<int>(vertex_num);
+	m_nVertexNum = Rcpp::as<int>(vertex_num);
 
 	// Define our DataFrame vectors
 	Rcpp::IntegerVector start_vertices = graph_df[0];
@@ -112,10 +111,6 @@ void Graph::_create_from_R(const Rcpp::IntegerVector& vertex_num,
 
 	m_nVertexNum = m_vtVertices.size();
 	m_nEdgeNum = m_mpEdgeCodeWeight.size();
-
-	Rcpp::Rcout << "The number of nodes in the graph is "<<  m_vtVertices.size() << std::endl;
-	Rcpp::Rcout << "The number of edges in the graph is "<<  m_mpEdgeCodeWeight.size() << std::endl;
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////
