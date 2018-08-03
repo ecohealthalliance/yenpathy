@@ -57,8 +57,7 @@ Rcpp::List k_shortest_paths(Rcpp::IntegerVector start_vertex,
 		path_vec = path->PathVector();
 		results.push_back((path_vec));
 
-
-		// path->PrintOut(Rcpp::Rcout);
+		path->PrintOut(Rcpp::Rcout);
 		// Rcpp::Rcout << "This path is (str): " << path_str << std::endl;
 
 	}

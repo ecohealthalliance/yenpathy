@@ -19,6 +19,7 @@
 #include "Graph.h"
 #include "DijkstraShortestPathAlg.h"
 #include "YenTopKShortestPathsAlg.h"
+#include <Rcpp.h>
 
 using namespace std;
 
@@ -157,8 +158,15 @@ BasePath* YenTopKShortestPathsAlg::next()
 				pre_path_list.push_back(sub_path->GetVertex(j));
 			}
 
+			// Rcpp::Rcout << "pre_path_list size: " << pre_path_list.size() << endl;
+			
 			//4.4.2 Compose a candidate
 			sub_path = new Path(pre_path_list, cost+sub_path->Weight());
+			// sub_path = new Path(pre_path_list, cost+sub_path->Weight()+(pre_path_list.size()*1));
+
+
+			// Rcpp::Rcout << "Weight: " << sub_path->Weight() << endl;
+			// Rcpp::Rcout << "Length: " << sub_path->length() << endl;
 
 			//4.4.3 Put it in the candidate pool if new
 			if (m_mpDerivationVertexIndex.find(sub_path) == m_mpDerivationVertexIndex.end())
