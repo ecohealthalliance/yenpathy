@@ -24,7 +24,7 @@ using namespace std;
 
 // Roxygen comments go here
 // [[Rcpp::export]]
-Rcpp::CharacterVector shortest_path(Rcpp::IntegerVector start_vertex,
+Rcpp::CharacterVector shortest_path_Cpp(Rcpp::IntegerVector start_vertex,
                                     Rcpp::IntegerVector end_vertex,
                                     Rcpp::IntegerVector vertex_num,
                                     Rcpp::DataFrame graph_df)
