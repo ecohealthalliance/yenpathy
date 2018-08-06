@@ -23,7 +23,7 @@ using namespace std;
 
 
 // Roxygen comments go here
-// [[Rcpp::export]]
+// [[Rcpp::export(name = ".k_shortest_paths_Cpp")]]
 Rcpp::List k_shortest_paths_Cpp(Rcpp::IntegerVector start_vertex,
                                        Rcpp::IntegerVector end_vertex,
                                        Rcpp::IntegerVector k,

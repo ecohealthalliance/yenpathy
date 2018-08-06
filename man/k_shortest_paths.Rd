@@ -4,10 +4,12 @@
 \alias{k_shortest_paths}
 \title{Return k shortest paths through a weighted graph.}
 \usage{
-k_shortest_paths(start_vertex, end_vertex, k, vertex_num, graph_df,
-  edge_penalty = 0, verbose = FALSE)
+k_shortest_paths(k, start_vertex, end_vertex, vertex_num, graph_df,
+  edge_penalty = 0, verbose = getOption("yen.verbose", interactive()))
 }
 \arguments{
+\item{k}{The maximum number of paths to find.}
+
 \item{start_vertex}{The number of the path's starting vertex.}
 
 \item{end_vertex}{The number of the path's ending vertex.}

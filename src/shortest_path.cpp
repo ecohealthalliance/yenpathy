@@ -23,7 +23,7 @@ using namespace std;
 
 
 // Roxygen comments go here
-// [[Rcpp::export]]
+// [[Rcpp::export(name = ".shortest_path_Cpp")]]
 Rcpp::CharacterVector shortest_path_Cpp(Rcpp::IntegerVector start_vertex,
                                     Rcpp::IntegerVector end_vertex,
                                     Rcpp::IntegerVector vertex_num,

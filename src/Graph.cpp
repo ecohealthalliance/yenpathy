@@ -207,7 +207,7 @@ BaseVertex* Graph::get_vertex( int node_id )
 		const map<int, BaseVertex*>::iterator pos = m_mpVertexIndex.find(node_id);
 		if (pos == m_mpVertexIndex.end())
 		{
-			int vertex_id = m_vtVertices.size();
+			// int vertex_id = m_vtVertices.size();
 			vertex_pt = new BaseVertex();
 			vertex_pt->setID(node_id);
 			m_mpVertexIndex[node_id] = vertex_pt;
