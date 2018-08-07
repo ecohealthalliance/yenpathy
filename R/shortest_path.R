@@ -2,10 +2,9 @@
 #'
 #' This function constructs a graph in C++ and uses Dijkstra's Algorithm to find shortest path through the graph, starting and ending at specified nodes.
 #'
+#' @param graph_df A data frame representing the graph's edges. The first column should be an integer of starting vertices; the second should be an integer of ending vertices, and the third should be a numeric representing the weight or cost of that edge.
 #' @param start_vertex The number of the path's starting vertex.
 #' @param end_vertex The number of the path's ending vertex.
-#' @param vertex_num The total number of vertices in the graph.
-#' @param graph_df A data frame representing the graph's edges. The first column should be an integer of starting vertices; the second should be an integer of ending vertices, and the third should be a numeric representing the weight or cost of that edge.
 #' @param edge_penalty A constant to be added to each edge, if you wish to penalize routes with many edges.
 #' @param verbose Be more verbose.
 #'
@@ -21,9 +20,12 @@
 #' @export
 #'
 #' @import dplyr
-shortest_path <- function(start_vertex, end_vertex, vertex_num,
-                          graph_df, edge_penalty = 0,
-                          verbose = getOption("yen.verbose",interactive())) {
+shortest_path <- function(graph_df, start_vertex, end_vertex,
+                          edge_penalty = 0,
+                          verbose = getOption("yenpathy.verbose",interactive())) {
   graph_df <- mutate_at(graph_df, 3, ~. + edge_penalty)
-  .Call(`_yenpathy_shortest_path_Cpp`, start_vertex, end_vertex, vertex_num, graph_df)
+  vertex_num <- n_distinct(c(graph_df[, 1], graph_df[, 2]))
+  .Call(`_yenpathy_shortest_path_Cpp`,
+        graph_df, start_vertex, end_vertex,
+        vertex_num, verbose)
 }

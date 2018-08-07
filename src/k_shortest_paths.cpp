@@ -24,12 +24,12 @@ using namespace std;
 
 // Roxygen comments go here
 // [[Rcpp::export(name = ".k_shortest_paths_Cpp")]]
-Rcpp::List k_shortest_paths_Cpp(Rcpp::IntegerVector start_vertex,
-                                       Rcpp::IntegerVector end_vertex,
-                                       Rcpp::IntegerVector k,
-                                       Rcpp::IntegerVector vertex_num,
-                                       Rcpp::DataFrame graph_df,
-                                       bool verbose = false)
+Rcpp::List k_shortest_paths_Cpp(Rcpp::DataFrame graph_df,
+                                Rcpp::IntegerVector start_vertex,
+                                Rcpp::IntegerVector end_vertex,
+                                Rcpp::IntegerVector k,
+                                Rcpp::IntegerVector vertex_num,
+                                bool verbose = false)
 {
 	int start_vertex_ = Rcpp::as<int>(start_vertex);
 	int end_vertex_ = Rcpp::as<int>(end_vertex);
@@ -37,7 +37,7 @@ Rcpp::List k_shortest_paths_Cpp(Rcpp::IntegerVector start_vertex,
 
 	// Printing input
 	if (verbose == true) {
-		Rcpp::Rcout << "Route Start:" << start_vertex << std::endl;
+		Rcpp::Rcout << "Route Start: " << start_vertex << std::endl;
 		Rcpp::Rcout << "Route End: " << end_vertex << std::endl;
 	}
 
@@ -57,8 +57,9 @@ Rcpp::List k_shortest_paths_Cpp(Rcpp::IntegerVector start_vertex,
 		path_vec = path->PathVector();
 		results.push_back((path_vec));
 
-		path->PrintOut(Rcpp::Rcout);
-		// Rcpp::Rcout << "This path is (str): " << path_str << std::endl;
+		if (verbose == true) {
+			path->PrintOut(Rcpp::Rcout);
+		}
 
 	}
 	return(Rcpp::wrap(results));

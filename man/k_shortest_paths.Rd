@@ -4,19 +4,17 @@
 \alias{k_shortest_paths}
 \title{Return k shortest paths through a weighted graph.}
 \usage{
-k_shortest_paths(k, start_vertex, end_vertex, vertex_num, graph_df,
-  edge_penalty = 0, verbose = getOption("yen.verbose", interactive()))
+k_shortest_paths(graph_df, start_vertex, end_vertex, k = 1,
+  edge_penalty = 0, verbose = getOption("yenpathy.verbose", interactive()))
 }
 \arguments{
-\item{k}{The maximum number of paths to find.}
+\item{graph_df}{A data frame representing the graph's edges. The first column should be an integer of starting vertices; the second should be an integer of ending vertices, and the third should be a numeric representing the weight or cost of that edge.}
 
 \item{start_vertex}{The number of the path's starting vertex.}
 
 \item{end_vertex}{The number of the path's ending vertex.}
 
-\item{vertex_num}{The total number of vertices in the graph.}
-
-\item{graph_df}{A data frame representing the graph's edges. The first column should be an integer of starting vertices; the second should be an integer of ending vertices, and the third should be a numeric representing the weight or cost of that edge.}
+\item{k}{The maximum number of paths to find, default 1.}
 
 \item{edge_penalty}{A constant to be added to each edge, if you wish to penalize routes with many edges.}
 

@@ -24,17 +24,20 @@ using namespace std;
 
 // Roxygen comments go here
 // [[Rcpp::export(name = ".shortest_path_Cpp")]]
-Rcpp::CharacterVector shortest_path_Cpp(Rcpp::IntegerVector start_vertex,
-                                    Rcpp::IntegerVector end_vertex,
-                                    Rcpp::IntegerVector vertex_num,
-                                    Rcpp::DataFrame graph_df)
+Rcpp::IntegerVector shortest_path_Cpp(Rcpp::DataFrame graph_df,
+                                        Rcpp::IntegerVector start_vertex,
+                                        Rcpp::IntegerVector end_vertex,
+                                        Rcpp::IntegerVector vertex_num,
+                                        bool verbose = false)
 {
 	int start_vertex_ = Rcpp::as<int>(start_vertex);
 	int end_vertex_ = Rcpp::as<int>(end_vertex);
 
 	// Printing input
-	Rcpp::Rcout << "Route Start:" << start_vertex << std::endl;
-	Rcpp::Rcout << "Route End: " << end_vertex << std::endl;
+	if (verbose == true) {
+		Rcpp::Rcout << "Route Start: " << start_vertex << std::endl;
+		Rcpp::Rcout << "Route End: " << end_vertex << std::endl;
+	}
 
 	Graph* my_graph = new Graph(vertex_num, graph_df);
 	DijkstraShortestPathAlg shortest_path_alg(my_graph);
@@ -43,9 +46,11 @@ Rcpp::CharacterVector shortest_path_Cpp(Rcpp::IntegerVector start_vertex,
 
 
 	// Printing the result in various ways
-	result->PrintOut(Rcpp::Rcout);
-	Rcpp::Rcout << "Shortest Path: " << result->PathString() << std::endl;
+	if (verbose == true) {
+		result->PrintOut(Rcpp::Rcout);
+		Rcpp::Rcout << "Shortest Path: " << result->PathString() << std::endl;
+	}
 
-	return(Rcpp::wrap(result->PathString()));
+	return(Rcpp::wrap(result->PathVector()));
 }
 
