@@ -2,7 +2,7 @@
 
 Yenpathy is an R package to quickly find k shortest paths through a graph using a version of [Yen's algorithm](https://en.wikipedia.org/wiki/Yen%27s_algorithm).
 
-The package is a wrapper for a slightly modified version of the C++ implementation in https://github.com/yan-qi/k-shortest-paths-cpp-version, by *[@yan-qi](https://github.com/yan-qi)*. (I didn't write anything other than the Rcpp and R functions to wrap the algorithm.)
+The package is a wrapper for a slightly modified version of the C++ implementation in https://github.com/yan-qi/k-shortest-paths-cpp-version, by [@yan-qi](https://github.com/yan-qi). (I didn't write anything other than the Rcpp and R functions to wrap the algorithm.)
 
 The package is designed to be lightweight. There are already comprehensive solutions to working with graph data in R, including [igraph](http://igraph.org/r/) and its tidyverse-compatible interface [tidygraph](https://github.com/thomasp85/tidygraph). However, iGraph lacks a k-shortest-paths function — it can find the shortest path, and can find all simple paths, but on very large graphs the latter isn't reasonable to run.
 
