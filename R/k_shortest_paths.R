@@ -25,7 +25,7 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
                              edge_penalty = 0,
                              verbose = getOption("yenpathy.verbose",interactive())) {
   graph_df <- mutate_at(graph_df, 3, ~. + edge_penalty)
-  vertex_num <- n_distinct(c(graph_df[, 1], graph_df[, 2]))
+  vertex_num <- n_distinct(c(graph_df[[1]], graph_df[[2]]))
   .Call(`_yenpathy_k_shortest_paths_Cpp`,
         graph_df, start_vertex, end_vertex, k,
         vertex_num, verbose)
