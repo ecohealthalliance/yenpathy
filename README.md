@@ -30,9 +30,35 @@ small_graph <- data.frame(
 shortest_path(small_graph,
               start_vertex = 1, end_vertex = 6)
 
+# [1] 1 2 7 3 6
+
 k_shortest_paths(small_graph,
                  start_vertex = 1, end_vertex = 6, k = 10)
 
+# [[1]]
+# [1] 1 2 7 3 6
+# 
+# [[2]]
+# [1] 1 4 5 6
+# 
+# [[3]]
+# [1] 1 8 6
+# 
+# [[4]]
+# [1] 1 6
+
 k_shortest_paths(small_graph,
                  start_vertex = 1, end_vertex = 6, k = 10, edge_penalty = 0)
+
+# [[1]]
+# [1] 1 2 7 3 6
+# 
+# [[2]]
+# [1] 1 4 5 6
+# 
+# [[3]]
+# [1] 1 8 6
+# 
+# [[4]]
+# [1] 1 6
 ```
