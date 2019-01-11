@@ -14,8 +14,8 @@
 #' my_graph <- data.frame(source = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
 #'                        sink = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
 #'                        weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5))
-#' shortest_path(start_vertex = 1, end_vertex = 6, vertex_num = 8, graph_df = my_graph)
-#' shortest_path(start_vertex = 1, end_vertex = 6, vertex_num = 8, graph_df = my_graph, edge_penalty = 2)
+#' shortest_path(graph_df = my_graph, start_vertex = 1, end_vertex = 6)
+#' shortest_path(graph_df = my_graph, start_vertex = 1, end_vertex = 6, edge_penalty = 2)
 #'
 #' @export
 #'
