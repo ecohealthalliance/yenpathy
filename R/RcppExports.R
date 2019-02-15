@@ -5,7 +5,3 @@
     .Call(`_yenpathy_k_shortest_paths_Cpp`, graph_df, start_vertex, end_vertex, k, vertex_num, verbose)
 }
 
-.shortest_path_Cpp <- function(graph_df, start_vertex, end_vertex, vertex_num, verbose = FALSE) {
-    .Call(`_yenpathy_shortest_path_Cpp`, graph_df, start_vertex, end_vertex, vertex_num, verbose)
-}
-

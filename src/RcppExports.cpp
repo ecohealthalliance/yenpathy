@@ -21,25 +21,12 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// shortest_path_Cpp
-Rcpp::IntegerVector shortest_path_Cpp(Rcpp::DataFrame graph_df, Rcpp::IntegerVector start_vertex, Rcpp::IntegerVector end_vertex, Rcpp::IntegerVector vertex_num, bool verbose);
-RcppExport SEXP _yenpathy_shortest_path_Cpp(SEXP graph_dfSEXP, SEXP start_vertexSEXP, SEXP end_vertexSEXP, SEXP vertex_numSEXP, SEXP verboseSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type graph_df(graph_dfSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type start_vertex(start_vertexSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type end_vertex(end_vertexSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type vertex_num(vertex_numSEXP);
-    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(shortest_path_Cpp(graph_df, start_vertex, end_vertex, vertex_num, verbose));
-    return rcpp_result_gen;
-END_RCPP
-}
+
+RcppExport SEXP _yenpathy_shortest_path_Cpp(SEXP, SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_yenpathy_k_shortest_paths_Cpp", (DL_FUNC) &_yenpathy_k_shortest_paths_Cpp, 6},
-    {"_yenpathy_shortest_path_Cpp", (DL_FUNC) &_yenpathy_shortest_path_Cpp, 5},
+    {"_yenpathy_shortest_path_Cpp",    (DL_FUNC) &_yenpathy_shortest_path_Cpp,    5},
     {NULL, NULL, 0}
 };
 
