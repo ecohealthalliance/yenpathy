@@ -22,11 +22,8 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP _yenpathy_shortest_path_Cpp(SEXP, SEXP, SEXP, SEXP, SEXP);
-
 static const R_CallMethodDef CallEntries[] = {
     {"_yenpathy_k_shortest_paths_Cpp", (DL_FUNC) &_yenpathy_k_shortest_paths_Cpp, 6},
-    {"_yenpathy_shortest_path_Cpp",    (DL_FUNC) &_yenpathy_shortest_path_Cpp,    5},
     {NULL, NULL, 0}
 };
 
