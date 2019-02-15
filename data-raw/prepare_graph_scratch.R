@@ -1,5 +1,3 @@
-options(stringsAsFactors = FALSE)
-
 load_all()
 library(magrittr)
 library(purrr)
@@ -18,7 +16,8 @@ result_int <- k_shortest_paths(graph_df = graph_int, start_vertex = 6, end_verte
 
 graph_char <- data.frame(source = c("JFK", "ATL", "MKE", "JFK", "JFK", "CLT", "JFK", "EWR", "GSP", "LGA"),
                          sink = c("ATL", "MKE", "AVL", "AVL", "CLT", "AVL", "EWR", "GSP", "LGA", "AVL"),
-                         weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5))
+                         weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5),
+                         stringsAsFactors = FALSE)
 
 graph_df <- graph_char
 
@@ -58,7 +57,7 @@ result <- .Call(`_yenpathy_k_shortest_paths_Cpp`,
 if (class(nodes) == "character") {
   result %<>%
     map(factor, levels = labels(nodes_fact), labels = levels(nodes_fact)) %>%
-    map(as.character)	
+    map(as.character)
 }
 
 result
