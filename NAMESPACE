@@ -2,7 +2,8 @@
 
 export(k_shortest_paths)
 import(dplyr)
-import(magrittr)
 import(purrr)
 importFrom(Rcpp,sourceCpp)
+importFrom(magrittr,"%<>%")
+importFrom(magrittr,"%>%")
 useDynLib(yenpathy, .registration = TRUE)
