@@ -32,6 +32,11 @@
 k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
                              edge_penalty = 0,
                              verbose = getOption("yenpathy.verbose", interactive())) {
+    # Check for missing values and throw errors, so we don't crash once we're in C++.
+  NAs <- sapply(graph_df, function(x) sum(is.na(x)))
+  if (NAs[1] + NAs[2] > 0) stop("NA values are present in node columns")
+  if (NAs[3] > 0) warning("NA values are present in edge weights, and are omitted from the graph")
+
   nodes <- c(graph_df[[1]], graph_df[[2]]) %>%
     unique() %>%
     sort()
