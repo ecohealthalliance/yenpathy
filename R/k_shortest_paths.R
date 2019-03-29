@@ -40,6 +40,8 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
   nodes <- c(graph_df[[1]], graph_df[[2]]) %>%
     unique() %>%
     sort()
+  
+  if (ncol(graph_df) == 2) graph_df <- cbind(graph_df, 1)
 
   # If the graph we have received uses characters for its nodes, we convert them
   # to integers, using factor labels and levels to hash the original values of
