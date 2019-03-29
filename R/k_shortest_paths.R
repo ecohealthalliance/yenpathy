@@ -28,7 +28,7 @@
 #'
 #' @export
 #'
-#' @import dplyr
+#' @import dplyr magrittr purrr
 k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
                              edge_penalty = 0,
                              verbose = getOption("yenpathy.verbose", interactive())) {

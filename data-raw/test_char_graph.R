@@ -1,6 +1,4 @@
 load_all()
-library(magrittr)
-library(purrr)
 
 graph_int <- data.frame(
   source = c(6, 1, 8, 6, 6, 3, 6, 4, 5, 7),
