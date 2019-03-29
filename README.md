@@ -1,16 +1,16 @@
 # yenpathy
 
+[![Travis build status](https://travis-ci.org/ecohealthalliance/yenpathy.svg?branch=master)](https://travis-ci.org/ecohealthalliance/yenpathy)
+
 Yenpathy is an R package to quickly find k shortest paths through a graph using a version of [Yen's algorithm](https://en.wikipedia.org/wiki/Yen%27s_algorithm).
 
 The package is a wrapper for a slightly modified version of the C++ implementation in https://github.com/yan-qi/k-shortest-paths-cpp-version, by [@yan-qi](https://github.com/yan-qi). (I didn't write anything other than the Rcpp and R functions to wrap the algorithm.)
 
-The package is designed to be lightweight. There are already comprehensive solutions to working with graph data in R, including [igraph](http://igraph.org/r/) and its tidyverse-compatible interface [tidygraph](https://github.com/thomasp85/tidygraph). However, iGraph lacks a k-shortest-paths function — it can find the shortest path, and can find all simple paths, but on very large graphs the latter isn't reasonable to run.
+The package is designed to be lightweight. There are already comprehensive solutions to working with graph data in R, including [igraph](http://igraph.org/r/) and its tidyverse-compatible interface [tidygraph](https://github.com/thomasp85/tidygraph). However, iGraph lacks a k-shortest-paths function — it can find the shortest path, and can find all simple paths, but on very large graphs the latter isn't reasonable to run. As such, Yenpathy contains one user-facing function, `k_shortest_paths()`, to find — you guessed it — k shortest paths between two specified nodes in a graph.
 
-Yenpathy requires a data frame with rows representing graph edges. The first and second columns should contain integers representing nodes, and the third column should contain a numeric vector of edge weights.
+The function `k_shortest_paths()` requires a data frame with rows representing graph edges. The first and second columns should be integer or character vectors representing nodes, and the third column should contain a numeric vector of edge weights. You also need to provide a starting and ending node using the same names as the data frame. The function will find one path unless you pass it an argument `k` specifying the maximum number of paths you want. It also accepts an argument `edge_penalty`, a number which is added uniformly to all edge weights before the graph is passed to the C++ functions. This can be used to penalize routes which use use many edges.
 
-The two functions, `shortest_path()` and `k_shortest_paths()`, also accept an argument `edge_penalty`, a numeric which is added to all weights before the graph is passed to the C++ functions. This is so that a penalty can be added to routes which include many edges.
-
-The functions return an integer vector and a list of integer vectors respectively, representing sequences of nodes through the network. In the case of `k_shortest_paths()`, the list is ordered by shortness. The calculated weight is not returned, as it can be quickly computed in R if need be; however, if the `verbose` option is enabled (which it is by default in interactive R sessions), the computed weight/cost of a route is printed as the algorithm runs.
+The function returns a list of integer or character vectors, matching the names of your initial data frame, representing sequences of nodes through the network. The list is ordered from smallest to largest weight, after adding any `edge_penalty`. The weight, penalized or otherwise, is not returned. However, if the `verbose` option is enabled (which it is by default in interactive R sessions), the computed weight/cost of a route will be printed as the algorithm runs.
 
 Here's a brief example of how it works:
 
