@@ -3,5 +3,6 @@
 export(k_shortest_paths)
 import(dplyr)
 import(magrittr)
+import(purrr)
 importFrom(Rcpp,sourceCpp)
 useDynLib(yenpathy, .registration = TRUE)
