@@ -1,6 +1,7 @@
 # yenpathy
 
 [![Travis build status](https://travis-ci.org/ecohealthalliance/yenpathy.svg?branch=master)](https://travis-ci.org/ecohealthalliance/yenpathy)
+[![Codecov test coverage](https://codecov.io/gh/ecohealthalliance/yenpathy/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/yenpathy?branch=master)
 
 Yenpathy is an R package to quickly find k shortest paths through a graph using a version of [Yen's algorithm](https://en.wikipedia.org/wiki/Yen%27s_algorithm).
 
