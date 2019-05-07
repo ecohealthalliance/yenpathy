@@ -7,7 +7,7 @@
 
 yenpathy is an R package to quickly find k shortest paths through a weighted graph. There are already comprehensive network analysis packages in R, notably [igraph](http://igraph.org/r/) and its tidyverse-compatible interface [tidygraph](https://github.com/thomasp85/tidygraph), but these lack the ability to find *k* shortest paths through a network. (iGraph can find *all* shortest paths, but on very large graphs this is intractible.)
 
-yenpathy provides the function `k_shortest_paths()`, which returns *k* shortest paths between two specified nodes in a graph, which is specified as a data frame containing a list of edges with start nodes, end nodes, and optional weights.
+yenpathy provides the function `k_shortest_paths()`, which returns *k* shortest paths between two nodes in a graph, specified as a data frame containing a list of edges with start nodes, end nodes, and optional weights.
 
 ## Installation
 
