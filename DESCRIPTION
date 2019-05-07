@@ -19,3 +19,5 @@ Imports:
     Rcpp
 RoxygenNote: 6.1.1
 SystemRequirements: C++11
+Suggests: 
+    testthat (>= 2.1.0)
