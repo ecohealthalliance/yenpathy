@@ -3,3 +3,4 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^codecov\.yml$
+^README\.Rmd$
