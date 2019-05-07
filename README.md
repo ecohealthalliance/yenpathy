@@ -62,3 +62,9 @@ k_shortest_paths(small_graph,
 # [[4]]
 # [1] 1 6
 ```
+
+## Contributing
+
+This project is released with a [Contributor Code of Conduct](https://github.com/ecohealthalliance/yenpathy/blob/master/CONDUCT.md). By participating in this project, you agree to abide by its terms.
+
+Feel free to submit feedback, bug reports, or feature suggestions [here](https://github.com/ecohealthalliance/yenpathy/issues), or to submit fixes as pull requests.

@@ -1,6 +1,6 @@
 Package: yenpathy
 Title: Yen's K Shortest Paths Algorithm, Quickly
-Version: 0.0.0.9000
+Version: 0.1.0.0000
 Authors@R: c(person("Toph", "Allen", email = "toph.allen@gmail.com", role = c("aut", "cre")))
 Description: yenpathy is a lightweight package to quickly find k shortest paths through a weighted graph.
 Depends:
@@ -11,6 +11,8 @@ Depends:
 License: Apache License 2.0
 Encoding: UTF-8
 LazyData: true
+URL: BugReports: https://github.com/ecohealthalliance/yenpathy/
+BugReports: https://github.com/ecohealthalliance/yenpathy/issues
 LinkingTo: 
     Rcpp
 Imports: 
