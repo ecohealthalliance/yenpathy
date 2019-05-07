@@ -3,24 +3,27 @@
 [![Travis build status](https://travis-ci.org/ecohealthalliance/yenpathy.svg?branch=master)](https://travis-ci.org/ecohealthalliance/yenpathy)
 [![Codecov test coverage](https://codecov.io/gh/ecohealthalliance/yenpathy/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/yenpathy?branch=master)
 
-Yenpathy is an R package to quickly find k shortest paths through a graph using a version of [Yen's algorithm](https://en.wikipedia.org/wiki/Yen%27s_algorithm).
+## Overview
 
-The package is a wrapper for a slightly modified version of the C++ implementation in https://github.com/yan-qi/k-shortest-paths-cpp-version, by [@yan-qi](https://github.com/yan-qi). (I didn't write anything other than the Rcpp and R functions to wrap the algorithm.)
+yenpathy is an R package to quickly find k shortest paths through a weighted graph. There are already comprehensive network analysis packages in R, notably [igraph](http://igraph.org/r/) and its tidyverse-compatible interface [tidygraph](https://github.com/thomasp85/tidygraph), but these lack the ability to find *k* shortest paths through a network. (iGraph can find *all* shortest paths, but on very large graphs this is intractible.)
 
-The package is designed to be lightweight. There are already comprehensive solutions to working with graph data in R, including [igraph](http://igraph.org/r/) and its tidyverse-compatible interface [tidygraph](https://github.com/thomasp85/tidygraph). However, iGraph lacks a k-shortest-paths function — it can find the shortest path, and can find all simple paths, but on very large graphs the latter isn't reasonable to run. As such, Yenpathy contains one user-facing function, `k_shortest_paths()`, to find — you guessed it — k shortest paths between two specified nodes in a graph.
+yenpathy provides the function `k_shortest_paths()`, which returns *k* shortest paths between two specified nodes in a graph, which is specified as a data frame containing a list of edges with start nodes, end nodes, and optional weights.
 
-The function `k_shortest_paths()` requires a data frame with rows representing graph edges. The first and second columns should be integer or character vectors representing nodes, and the third column should contain a numeric vector of edge weights. You also need to provide a starting and ending node using the same names as the data frame. The function will find one path unless you pass it an argument `k` specifying the maximum number of paths you want. It also accepts an argument `edge_penalty`, a number which is added uniformly to all edge weights before the graph is passed to the C++ functions. This can be used to penalize routes which use use many edges.
+## Installation
 
-The function returns a list of integer or character vectors, matching the names of your initial data frame, representing sequences of nodes through the network. The list is ordered from smallest to largest weight, after adding any `edge_penalty`. The weight, penalized or otherwise, is not returned. However, if the `verbose` option is enabled (which it is by default in interactive R sessions), the computed weight/cost of a route will be printed as the algorithm runs.
-
-Here's a brief example of how it works:
+Install yenpathy from GitHub with [devtools](https://github.com/hadley/devtools):
 
 ```r
+library(devtools)
 install_github("ecohealthalliance/yenpathy")
+```
 
+## Usage
+
+Pass `k_shortest_paths()` a data frame (`graph_df`) with rows representing the edges of a graph. The first and second columns represent the start and end nodes as integer or character vectors, and the optional third column contains a numeric vector of edge weights. You must also provide a `start_vertex` and `end_vertex`, which each specify a node as it is referenced in `graph_df`. The function will return a list containing up to `k` (default 1) vectors representing paths through the graph.
+
+```r
 library(yenpathy)
-
-options(yenpathy.verbose = FALSE)
 
 small_graph <- data.frame(
   start = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
@@ -28,28 +31,13 @@ small_graph <- data.frame(
   weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
 )
 
-k_shortest_paths(small_graph,
-                 start_vertex = 1, end_vertex = 6)
-
-# [1] 1 2 7 3 6
-
-k_shortest_paths(small_graph,
-                 start_vertex = 1, end_vertex = 6, k = 10)
+k_shortest_paths(small_graph, start_vertex = 1, end_vertex = 6)
 
 # [[1]]
-# [1] 1 2 7 3 6
-# 
-# [[2]]
-# [1] 1 4 5 6
-# 
-# [[3]]
-# [1] 1 8 6
-# 
-# [[4]]
-# [1] 1 6
+# [1] 1 2 7 3
 
 k_shortest_paths(small_graph,
-                 start_vertex = 1, end_vertex = 6, k = 10, edge_penalty = 0)
+                 start_vertex = 1, end_vertex = 6, k = 4)
 
 # [[1]]
 # [1] 1 2 7 3 6
@@ -63,6 +51,32 @@ k_shortest_paths(small_graph,
 # [[4]]
 # [1] 1 6
 ```
+
+You can also pass an `edge_penalty`, a number which is added to all of the edge weights. This can be used to penalize paths consisting of more edges.
+
+```r
+k_shortest_paths(small_graph,
+                 start_vertex = 1,
+                 end_vertex = 6,
+                 k = 4,
+                 edge_penalty = 1)
+
+# [[1]]
+# [1] 1 8 6
+# 
+# [[2]]
+# [1] 1 6
+# 
+# [[3]]
+# [1] 1 4 5 6
+# 
+# [[4]]
+# [1] 1 2 7 3 6
+```
+
+## Implementation 
+
+The package wraps a C++ implementation of [Yen's algorithm](https://en.wikipedia.org/wiki/Yen%27s_algorithm). The original C++ version is available on GitHub at [yan-qi/k-shortest-paths-cpp-version](https://github.com/yan-qi/k-shortest-paths-cpp-version), and was written by [Yan Qi](https://github.com/yan-qi). The version used by yenpathy is modified to work with variables passed from R.
 
 ## Contributing
 
