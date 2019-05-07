@@ -1,5 +1,5 @@
 ---
-title: 'Yenpathy: An R Package to Quickly Find K Shortest Paths Through a Weighted Graph'
+title: 'yenpathy: An R Package to Quickly Find K Shortest Paths Through a Weighted Graph'
 tags:
   - R
   - graphs
