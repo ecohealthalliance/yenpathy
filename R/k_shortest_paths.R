@@ -33,7 +33,24 @@
 k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
                              edge_penalty = 0,
                              verbose = getOption("yenpathy.verbose", interactive())) {
-    # Check for missing values and throw errors, so we don't crash once we're in C++.
+  # Handle unweighted graphs with only source and sink columns.
+  if (ncol(graph_df) == 2) graph_df[3] <- 1
+
+  # Check column types
+  if (!inherits(graph_df[[3]], c("numeric", "integer"))) {
+    stop("Weight column must be numeric or integer")
+  }
+
+  if (!inherits(graph_df[[3]], c("numeric", "integer"))) {
+    stop("Weight column must be numeric or integer")
+  }
+
+  # Refuse to handle graphs stored as factors
+  if (sum(sapply(graph_df[c(1, 2)], is.factor)) > 0) {
+    stop("Please use character or integer vectors for your node columns")
+  }
+
+  # Check for missing values and throw errors, so we don't crash once we're in C++.
   NAs <- sapply(graph_df, function(x) sum(is.na(x)))
   if (NAs[1] + NAs[2] > 0) stop("NA values are present in node columns")
   if (NAs[3] > 0) warning("NA values are present in edge weights, and are omitted from the graph")
@@ -41,8 +58,6 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
   nodes <- c(graph_df[[1]], graph_df[[2]]) %>%
     unique() %>%
     sort()
-
-  if (ncol(graph_df) == 2) graph_df <- cbind(graph_df, 1)
 
   # If the graph we have received uses characters for its nodes, we convert them
   # to integers, using factor labels and levels to hash the original values of
