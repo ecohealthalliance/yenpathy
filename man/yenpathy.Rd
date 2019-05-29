@@ -6,8 +6,8 @@
 \alias{yenpathy-package}
 \title{yenpathy: Quickly Find K Shortest Paths Through a Weighted Graph}
 \description{
-Using yenpathy, you can quickly find k shortest paths through a
-weighted graph. See GitHub for more details at
+yenpathy lets you quickly find k shortest paths through even large weighted
+graphs. See GitHub for more details at
 \url{https://github.com/ecohealthalliance/yenpathy}.
 }
 \keyword{internal}

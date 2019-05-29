@@ -33,6 +33,14 @@
 k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
                              edge_penalty = 0,
                              verbose = getOption("yenpathy.verbose", interactive())) {
+  # Handle iGraph and tidygraph objects.
+  if (inherits(graph_df, "igraph")) {
+    if (!requireNamespace("igraph")) {
+      stop("The igraph package is required to process this object")
+    }
+    graph_df <- igraph::as_data_frame(graph_df)
+  }
+
   # Handle unweighted graphs with only source and sink columns.
   if (ncol(graph_df) == 2) graph_df[3] <- 1
 
