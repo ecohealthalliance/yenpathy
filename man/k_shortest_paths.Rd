@@ -5,12 +5,12 @@
 \title{Return k shortest paths through a weighted graph.}
 \usage{
 k_shortest_paths(graph_df, start_vertex, end_vertex, k = 1,
-  edge_penalty = 0, verbose = getOption("yenpathy.verbose",
-  interactive()))
+  edge_penalty = 0, verbose = getOption("yenpathy.verbose", FALSE))
 }
 \arguments{
 \item{graph_df}{A data frame representing the graph's edges, with columns, in
-order, for start node, end node, and weight or cost.}
+order, for start node, end node, and weight or cost. May also be an iGraph
+or tidygraph object.}
 
 \item{start_vertex}{The number or name of the starting vertex.}
 

@@ -8,7 +8,8 @@
 #' you back a list of character vectors paths.
 #'
 #' @param graph_df A data frame representing the graph's edges, with columns, in
-#'   order, for start node, end node, and weight or cost.
+#'   order, for start node, end node, and weight or cost. May also be an iGraph
+#'   or tidygraph object.
 #' @param start_vertex The number or name of the starting vertex.
 #' @param end_vertex The number or name of the path's ending vertex.
 #' @param k The maximum number of paths to find, default 1.
@@ -32,7 +33,7 @@
 #' @importFrom magrittr %>% %<>%
 k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
                              edge_penalty = 0,
-                             verbose = getOption("yenpathy.verbose", interactive())) {
+                             verbose = getOption("yenpathy.verbose", FALSE)) {
   # Handle iGraph and tidygraph objects.
   if (inherits(graph_df, "igraph")) {
     if (!requireNamespace("igraph")) {
