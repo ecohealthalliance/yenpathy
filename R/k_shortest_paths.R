@@ -50,10 +50,6 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
     stop("Weight column must be numeric or integer")
   }
 
-  if (!inherits(graph_df[[3]], c("numeric", "integer"))) {
-    stop("Weight column must be numeric or integer")
-  }
-
   # Refuse to handle graphs stored as factors
   if (sum(sapply(graph_df[c(1, 2)], is.factor)) > 0) {
     stop("Please use character or integer vectors for your node columns")

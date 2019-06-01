@@ -53,6 +53,12 @@ test_that("NA values in weights gives a warning", {
   expect_warning(k_shortest_paths(graph_na, start_int, end_int))
 })
 
+test_that("Incorrect weight types throws an error", {
+  graph_na <- graph_int
+  graph_na[, 3] <- as.character(graph_na[, 3])
+  expect_error(k_shortest_paths(graph_na, start_int, end_int))
+})
+
 test_that("factor representations of nodes throw an error", {
   graph_fct <- data.frame(
     source = c("JFK", "ATL", "MKE", "JFK", "JFK", "CLT", "JFK", "EWR", "GSP", "LGA"),
