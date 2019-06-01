@@ -49,12 +49,12 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
   }
 
   # Refuse to handle graphs stored as factors
-  if (sum(sapply(graph_df[c(1, 2)], is.factor)) > 0) {
+  if (any(vapply(graph_df[c(1, 2)], is.factor, logical(1)))) {
     stop("Please use character or integer vectors for your node columns")
   }
 
   # Check for missing values and throw errors, so we don't crash once we're in C++.
-  NAs <- sapply(graph_df, function(x) sum(is.na(x)))
+  NAs <- vapply(graph_df, function(x) sum(is.na(x)), integer(1))
   if (NAs[1] + NAs[2] > 0) stop("NA values are present in node columns")
   if (NAs[3] > 0) warning("NA values are present in edge weights, and are omitted from the graph")
 
