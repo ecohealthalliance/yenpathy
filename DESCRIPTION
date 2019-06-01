@@ -2,7 +2,7 @@ Package: yenpathy
 Title: Quickly Find K Shortest Paths Through a Weighted Graph
 Version: 0.1.0.0000
 Authors@R: c(
-    person("Toph", "Allen", email = "toph.allen@gmail.com", role = c("aut", "cre"), comment = c(ORCID="0000-0003-4580-091X")),
+    person("Toph", "Allen", email = "allen@ecohealthalliance.org", role = c("aut", "cre"), comment = c(ORCID="0000-0003-4580-091X")),
     person("Noam", "Ross", role = "ctb", comment = c(ORCID="0000-0002-2136-0000")),
     person("Yan", "Qi", role = c("aut"), comment = "Original C++ implementation"),
     person("EcoHealth Alliance", role = c("cph"))
