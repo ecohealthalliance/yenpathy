@@ -83,9 +83,8 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
 
   vertex_num <- length(unique(nodes))
 
-  result <- .Call(`_yenpathy_k_shortest_paths_Cpp`,
-                  graph_df, start_vertex, end_vertex, k,
-                  vertex_num, verbose)
+  result <- .k_shortest_paths_Cpp(graph_df, start_vertex, end_vertex, k,
+                                  vertex_num, verbose)
 
   # If our original graph had character nodes, we replace our numeric nodes with
   # their original character names.
