@@ -9,10 +9,7 @@ Authors@R: c(
     )
 Description: yenpathy is a lightweight package to quickly find k shortest paths through a weighted graph.
 Depends:
-    R (>= 3.5.0),
-    magrittr (>= 1.5),
-    dplyr (>= 0.7.5),
-    purrr (>= 0.2.5)
+    R (>= 3.5.0)
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
