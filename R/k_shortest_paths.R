@@ -29,8 +29,6 @@
 #'
 #' @export
 #'
-#' @import dplyr purrr
-#' @importFrom magrittr %>% %<>%
 k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
                              edge_penalty = 0,
                              verbose = getOption("yenpathy.verbose", FALSE)) {
@@ -50,23 +48,19 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
     stop("Weight column must be numeric or integer")
   }
 
-  if (!inherits(graph_df[[3]], c("numeric", "integer"))) {
-    stop("Weight column must be numeric or integer")
-  }
-
   # Refuse to handle graphs stored as factors
-  if (sum(sapply(graph_df[c(1, 2)], is.factor)) > 0) {
+  if (any(vapply(graph_df[c(1, 2)], is.factor, logical(1)))) {
     stop("Please use character or integer vectors for your node columns")
   }
 
   # Check for missing values and throw errors, so we don't crash once we're in C++.
-  NAs <- sapply(graph_df, function(x) sum(is.na(x)))
+  NAs <- vapply(graph_df, function(x) sum(is.na(x)), integer(1))
   if (NAs[1] + NAs[2] > 0) stop("NA values are present in node columns")
   if (NAs[3] > 0) warning("NA values are present in edge weights, and are omitted from the graph")
 
-  nodes <- c(graph_df[[1]], graph_df[[2]]) %>%
-    unique() %>%
-    sort()
+  nodes <- sort(unique(
+    c(graph_df[[1]], graph_df[[2]])
+  ))
 
   # If the graph we have received uses characters for its nodes, we convert them
   # to integers, using factor labels and levels to hash the original values of
@@ -78,25 +72,26 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
     node_labels <- labels(nodes_fact)
     node_levels <- levels(nodes_fact)
 
-    graph_df %<>%
-      mutate_at(1:2, ~ as.numeric(factor(., levels = node_levels)))
+    graph_df[, 1] <- as.numeric(factor(graph_df[, 1], levels = node_levels))
+    graph_df[, 2] <- as.numeric(factor(graph_df[, 2], levels = node_levels))
 
     start_vertex <- as.numeric(factor(start_vertex, levels = node_levels))
     end_vertex <- as.numeric(factor(end_vertex, levels = node_levels))
   }
 
-  graph_df %<>% mutate_at(3, ~ . + edge_penalty)
-  vertex_num <- n_distinct(nodes)
+  graph_df[, 3] <- graph_df[, 3]  + edge_penalty
 
-  result <- .Call(`_yenpathy_k_shortest_paths_Cpp`,
-                  graph_df, start_vertex, end_vertex, k,
-                  vertex_num, verbose)
+  vertex_num <- length(unique(nodes))
+
+  result <- .k_shortest_paths_Cpp(graph_df, start_vertex, end_vertex, k,
+                                  vertex_num, verbose)
 
   # If our original graph had character nodes, we replace our numeric nodes with
   # their original character names.
   if (class(nodes) == "character") {
-    result %<>%
-      map(~as.character(factor(.x, levels = node_labels, labels = node_levels)))
+    result <- lapply(result, function(.x) {
+      as.character(factor(.x, levels = node_labels, labels = node_levels))
+    })
   }
 
   result

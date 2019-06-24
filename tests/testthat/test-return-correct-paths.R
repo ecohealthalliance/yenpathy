@@ -29,8 +29,10 @@ test_that("shortest weighted path is found", {
 })
 
 test_that("correct number of paths are returned", {
-  paths <- map(1:5, ~k_shortest_paths(weighted_graph, start_node, end_node, .x))
-  expect_equal(map_int(paths, length), c(1, 2, 3, 4, 4))
+  paths <- lapply(1:5, function(.x) {
+    k_shortest_paths(weighted_graph, start_node, end_node, .x)
+  })
+  expect_equal(vapply(paths, length, integer(1)), c(1, 2, 3, 4, 4))
 })
 
 test_that("edge penalty correctly changes returned paths", {

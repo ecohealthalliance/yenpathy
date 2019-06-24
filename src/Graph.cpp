@@ -5,7 +5,7 @@
 ///  @remarks <TODO: insert remarks here>
 ///
 ///  @author Yan Qi @date 8/18/2010
-/// 
+///
 ///  $Id: Graph.cpp 65 2010-09-08 06:48:36Z yan.qi.asu $
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -61,7 +61,7 @@ void Graph::_create_from_R(const Rcpp::IntegerVector& vertex_num,
 	//1. Reset the members of the class
 	clear();
 
-	//2. Assign to expected variables. 
+	//2. Assign to expected variables.
 	//2.1 The first line has an integer as the number of vertices of the graph
 	m_nVertexNum = Rcpp::as<int>(vertex_num);
 
@@ -91,7 +91,7 @@ void Graph::_create_from_R(const Rcpp::IntegerVector& vertex_num,
 		BaseVertex* end_vertex_pt = get_vertex(end_vertex);
 
 		///3.2.2 add the edge weight
-		//// note that the duplicate edge would overwrite the one occurring before. 
+		//// note that the duplicate edge would overwrite the one occurring before.
 		m_mpEdgeCodeWeight[get_edge_code(start_vertex_pt, end_vertex_pt)] = edge_weight;
 
 		///3.2.3 update the fan-in or fan-out variables
@@ -101,12 +101,11 @@ void Graph::_create_from_R(const Rcpp::IntegerVector& vertex_num,
 		//// Fan-out
 		get_vertex_set_pt(start_vertex_pt, m_mpFanoutVertices)->insert(end_vertex_pt);
 
-	}	
+	}
 
 	if(m_nVertexNum != m_vtVertices.size())
 	{
-		cerr << "The number of nodes in the graph is "<<  m_vtVertices.size() << " instead of " << m_nVertexNum << endl;
-		exit(1);
+		Rcpp::stop("The number of nodes in the graph is ", m_vtVertices.size(), " instead of ", m_nVertexNum);
 	}
 
 	m_nVertexNum = m_vtVertices.size();
@@ -115,7 +114,7 @@ void Graph::_create_from_R(const Rcpp::IntegerVector& vertex_num,
 
 ///////////////////////////////////////////////////////////////////////////////
 ///  public  _import_from_file
-///  Construct the graph by importing the edges from the input file. 
+///  Construct the graph by importing the edges from the input file.
 ///
 ///  @param [in]       file_name const std::string &    The input graph file
 ///
@@ -124,7 +123,7 @@ void Graph::_create_from_R(const Rcpp::IntegerVector& vertex_num,
 ///  @remarks The format of the file is as follows:
 ///   1. The first line has an integer as the number of vertices of the graph
 ///   2. Each line afterwards contains a directed edge in the graph:
-///		     starting point, ending point and the weight of the edge. 
+///		     starting point, ending point and the weight of the edge.
 ///		 These values are separated by 'white space'.
 ///
 ///  @see <TODO: insert text here>
@@ -139,21 +138,21 @@ void Graph::_import_from_file( const string& input_file_name )
 	ifstream ifs(file_name);
 	if (!ifs)
 	{
-		cerr << "The file " << file_name << " can not be opened!" << endl;
-		exit(1);
+		Rcpp::stop("The file ", file_name, " can not be opened!");
+
 	}
 
 	//2. Reset the members of the class
 	clear();
 
-	//3. Start to read information from the input file. 
+	//3. Start to read information from the input file.
 	/// Note the format of the data in the graph file.
 	//3.1 The first line has an integer as the number of vertices of the graph
 	ifs >> m_nVertexNum;
 
 	//3.2 In the following lines, each line contains a directed edge in the graph:
-	///   the id of starting point, the id of ending point, the weight of the edge. 
-	///   These values are separated by 'white space'. 
+	///   the id of starting point, the id of ending point, the weight of the edge.
+	///   These values are separated by 'white space'.
 	int start_vertex, end_vertex;
 	double edge_weight;
 	// int vertex_id = 0;
@@ -172,7 +171,7 @@ void Graph::_import_from_file( const string& input_file_name )
 		BaseVertex* end_vertex_pt = get_vertex(end_vertex);
 
 		///3.2.2 add the edge weight
-		//// note that the duplicate edge would overwrite the one occurring before. 
+		//// note that the duplicate edge would overwrite the one occurring before.
 		m_mpEdgeCodeWeight[get_edge_code(start_vertex_pt, end_vertex_pt)] = edge_weight;
 
 		///3.2.3 update the fan-in or fan-out variables
@@ -182,18 +181,17 @@ void Graph::_import_from_file( const string& input_file_name )
 		//// Fan-out
 		get_vertex_set_pt(start_vertex_pt, m_mpFanoutVertices)->insert(end_vertex_pt);
 
-	}	
+	}
 
 	if(m_nVertexNum != m_vtVertices.size())
 	{
-		cerr << "The number of nodes in the graph is "<<  m_vtVertices.size() << " instead of " << m_nVertexNum << endl;
-		exit(1);
+		Rcpp::stop("The number of nodes in the graph is ", m_vtVertices.size(), " instead of ", m_nVertexNum);
 	}
 
 	m_nVertexNum = m_vtVertices.size();
 	m_nEdgeNum = m_mpEdgeCodeWeight.size();
 
-	ifs.close();	
+	ifs.close();
 }
 
 BaseVertex* Graph::get_vertex( int node_id )
@@ -218,7 +216,7 @@ BaseVertex* Graph::get_vertex( int node_id )
 			vertex_pt = pos->second;
 		}
 
-		return vertex_pt;	
+		return vertex_pt;
 	}
 }
 
@@ -255,7 +253,7 @@ void Graph::clear()
 
 int Graph::get_edge_code( const BaseVertex* start_vertex_pt, const BaseVertex* end_vertex_pt ) const
 {
-	/// Note that the computation below works only if 
+	/// Note that the computation below works only if
 	/// the result is smaller than the maximum of an integer!
 	return start_vertex_pt->getID()*m_nVertexNum+end_vertex_pt->getID();
 }
@@ -268,7 +266,7 @@ set<BaseVertex*>* Graph::get_vertex_set_pt( BaseVertex* vertex_, map<BaseVertex*
 	if(pos == vertex_container_index.end())
 	{
 		set<BaseVertex*>* vertex_set = new set<BaseVertex*>();
-		pair<BaseVertexPt2SetMapIterator,bool> ins_pos = 
+		pair<BaseVertexPt2SetMapIterator,bool> ins_pos =
 			vertex_container_index.insert(make_pair(vertex_, vertex_set));
 
 		pos = ins_pos.first;
@@ -323,7 +321,7 @@ void Graph::get_precedent_vertices( BaseVertex* vertex, set<BaseVertex*>& vertex
 	{
 		int ending_vt_id = vertex->getID();
 		set<BaseVertex*>* pre_vertex_set = get_vertex_set_pt(vertex, m_mpFaninVertices);
-		for(set<BaseVertex*>::const_iterator pos=(*pre_vertex_set).begin(); 
+		for(set<BaseVertex*>::const_iterator pos=(*pre_vertex_set).begin();
 			pos != (*pre_vertex_set).end(); ++pos)
 		{
 			int starting_vt_id = (*pos)->getID();
@@ -340,7 +338,7 @@ void Graph::get_precedent_vertices( BaseVertex* vertex, set<BaseVertex*>& vertex
 
 double Graph::get_original_edge_weight( const BaseVertex* source, const BaseVertex* sink )
 {
-	map<int, double>::const_iterator pos = 
+	map<int, double>::const_iterator pos =
 		m_mpEdgeCodeWeight.find(get_edge_code(source, sink));
 
 	if (pos != m_mpEdgeCodeWeight.end())
