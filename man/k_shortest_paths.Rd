@@ -4,8 +4,9 @@
 \alias{k_shortest_paths}
 \title{Return k shortest paths through a weighted graph.}
 \usage{
-k_shortest_paths(graph_df, start_vertex, end_vertex, k = 1,
-  edge_penalty = 0, verbose = getOption("yenpathy.verbose", FALSE))
+k_shortest_paths(graph_df, start_vertex, end_vertex, k = 1, from = 1,
+  to = 2, weights = "weight", edge_penalty = 0,
+  verbose = getOption("yenpathy.verbose", FALSE))
 }
 \arguments{
 \item{graph_df}{A data frame representing the graph's edges, with columns, in
@@ -17,6 +18,9 @@ or tidygraph object.}
 \item{end_vertex}{The number or name of the path's ending vertex.}
 
 \item{k}{The maximum number of paths to find, default 1.}
+
+\item{from, to, weights}{columns of the the start node, end node, and weight
+of edges in `graph_df`. May be integer or character.}
 
 \item{edge_penalty}{A constant to be added to each edge, if you wish to
 penalize routes with many edges.}
