@@ -6,3 +6,7 @@
 ^README\.Rmd$
 ^CONDUCT.md$
 ^paper
+^doc$
+^Meta$
+^vignettes/paper.md
+^LICENSE\.md$

@@ -12,14 +12,15 @@ coverage](https://codecov.io/gh/ecohealthalliance/yenpathy/branch/master/graph/b
 
 ## Overview
 
-`yenpathy` is an R package to quickly find k shortest paths through a
-weighted graph. There are already comprehensive network analysis
-packages in R, notably [`igraph`](http://igraph.org/r/) and its
-tidyverse-compatible interface
-[`tidygraph`](https://github.com/thomasp85/tidygraph), but these lack
-the ability to find *k* shortest paths through a network. (iGraph can
-find *all* shortest paths, but on very large graphs this is
-intractible.)
+`yenpathy` is an R package to quickly find *k* shortest paths through a
+weighted graph using Yen’s Algorithm \[@Yen\_1971\]. This algorithm has
+numerous applications in network analysis, such as transportation
+planning.
+
+There are already comprehensive network analysis packages in R, notably
+[**igraph**](http://igraph.org/r/) and its tidyverse-compatible
+interface [**tidygraph**](https://github.com/thomasp85/tidygraph).
+**yenpathy** complements these by doing one thing well.
 
 `yenpathy` provides the function `k_shortest_paths()`, which returns *k*
 shortest paths between two nodes in a graph, ordered from shortest to
@@ -43,6 +44,7 @@ representing the edges of a graph, as well as a `start_vertex` and
 `end_vertex`, referencing nodes in `graph_df`.
 
 ``` r
+library(nycflights13)
 library(yenpathy)
 
 small_graph <- data.frame(
@@ -88,36 +90,21 @@ k_shortest_paths(small_graph,
 #> [1] 1 8 6
 #> 
 #> [[2]]
-#> [1] 1 6
+#> [1] 1 4 5 6
 #> 
 #> [[3]]
-#> [1] 1 4 5 6
+#> [1] 1 6
 #> 
 #> [[4]]
 #> [1] 1 2 7 3 6
 ```
 
-### `graph_df`
-
-The rows of `graph_df` are the edges of a graph. Its first and second
-columns should contain the names of the the start and end nodes
-respectively, either as integers or character vectors. The third column,
-if present, should contain a numeric vector of edge weights.
-
-In place of a data frame, you can provide an
-[`igraph`](https://igraph.org/r/) or
-[`tidygraph`](https://github.com/thomasp85/tidygraph) graph object,
-which will be converted to a data frame using `igraph::as_data_frame()`.
-
 ## Implementation
 
-The package wraps a C++ implementation of [Yen’s
-algorithm](https://en.wikipedia.org/wiki/Yen%27s_algorithm). The
-original C++ code is available on GitHub at
-[yan-qi/k-shortest-paths-cpp-version](https://github.com/yan-qi/k-shortest-paths-cpp-version),
-and was written by [Yan Qi](https://github.com/yan-qi). The version used
-by yenpathy is modified to work with variables passed from R using
-`Rcpp`.
+The package wraps a C++ implementation of Yen’s algorithm created by
+[Yan Qi](https://github.com/yan-qi). The original C++ code is available
+on GitHub at
+[yan-qi/k-shortest-paths-cpp-version](https://github.com/yan-qi/k-shortest-paths-cpp-version).
 
 ## Contributing
 
