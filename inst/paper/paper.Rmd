@@ -39,6 +39,9 @@ wraps a C++ implementation of Yen’s algorithm created by Yan Qi [@ksp]. It wor
 correctly with stand-alone edge lists, as well as with objects from the
 **igraph** [@igraph] and **tidygraph** [@tidygraph] packages.
 
+The package is currently in use at EcoHealth Alliance for an ongoing flight
+network modeling project.
+
 # Usage
 
 To find shortest paths through a network, pass `k_shortest_paths()` a data frame
@@ -52,7 +55,7 @@ library(yenpathy)
 small_graph <- data.frame(
 start = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
 end = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
-weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+weight = c(1, 1, 1.5, 5, 1.5, 2.5, 1.5, 0.5, 0.5, 0.5)
 )
 
 k_shortest_paths(small_graph, from = 1, to = 6, k = 4)

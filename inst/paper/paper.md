@@ -39,6 +39,9 @@ wraps a C++ implementation of Yen’s algorithm created by Yan Qi [@ksp]. It wor
 correctly with stand-alone edge lists, as well as with objects from the
 **igraph** [@igraph] and **tidygraph** [@tidygraph] packages.
 
+The package is currently in use at EcoHealth Alliance for an ongoing flight
+network modeling project.
+
 # Usage
 
 To find shortest paths through a network, pass `k_shortest_paths()` a data frame
@@ -53,7 +56,7 @@ library(yenpathy)
 small_graph <- data.frame(
 start = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
 end = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
-weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+weight = c(1, 1, 1.5, 5, 1.5, 2.5, 1.5, 0.5, 0.5, 0.5)
 )
 
 k_shortest_paths(small_graph, from = 1, to = 6, k = 4)
@@ -83,10 +86,10 @@ k_shortest_paths(small_graph, from = 1, to = 6, k = 4, edge_penalty = 1)
 
 ```
 ## [[1]]
-## [1] 1 8 6
+## [1] 1 6
 ## 
 ## [[2]]
-## [1] 1 6
+## [1] 1 8 6
 ## 
 ## [[3]]
 ## [1] 1 4 5 6
@@ -130,16 +133,16 @@ paths[1:5]
 ## [1] "BGR" "DTW" "OMA"
 ## 
 ## [[2]]
-## [1] "BGR" "DTW" "AZO" "ORD" "OMA"
+## [1] "BGR" "DTW" "ORD" "OMA"
 ## 
 ## [[3]]
-## [1] "BGR" "DTW" "AZO" "ORD" "DSM" "OMA"
+## [1] "BGR" "DTW" "ORD" "DSM" "OMA"
 ## 
 ## [[4]]
 ## [1] "BGR" "DTW" "DSM" "OMA"
 ## 
 ## [[5]]
-## [1] "BGR" "DTW" "ORD" "OMA"
+## [1] "BGR" "DTW" "AZO" "ORD" "OMA"
 ```
 
 The result shows the airport *nodes*, but we can use the `paths` object to look
@@ -175,26 +178,22 @@ itineraries[1:5]
 ## [[2]]
 ##       from  to                      Carrier Departures Seats Passengers
 ## 8404   BGR DTW       Pinnacle Airlines Inc.         29  1450       1287
-## 8514   DTW AZO       Pinnacle Airlines Inc.         66  3299       2093
-## 19876  AZO ORD American Eagle Airlines Inc.         54  2700       1451
+## 20147  DTW ORD American Eagle Airlines Inc.        144  7200       6344
 ## 21492  ORD OMA        United Air Lines Inc.         48  6798       5077
 ##       Aircraft Distance
 ## 8404       629      750
-## 8514       629      113
-## 19876      675      122
+## 20147      675      235
 ## 21492      694      416
 ## 
 ## [[3]]
 ##       from  to                      Carrier Departures Seats Passengers
 ## 8404   BGR DTW       Pinnacle Airlines Inc.         29  1450       1287
-## 8514   DTW AZO       Pinnacle Airlines Inc.         66  3299       2093
-## 19876  AZO ORD American Eagle Airlines Inc.         54  2700       1451
+## 20147  DTW ORD American Eagle Airlines Inc.        144  7200       6344
 ## 22514  ORD DSM        Shuttle America Corp.         73  5110       2759
 ## 17379  DSM OMA                Allegiant Air          1   130         31
 ##       Aircraft Distance
 ## 8404       629      750
-## 8514       629      113
-## 19876      675      122
+## 20147      675      235
 ## 22514      677      299
 ## 17379      654      117
 ## 
@@ -211,11 +210,13 @@ itineraries[1:5]
 ## [[5]]
 ##       from  to                      Carrier Departures Seats Passengers
 ## 8404   BGR DTW       Pinnacle Airlines Inc.         29  1450       1287
-## 20147  DTW ORD American Eagle Airlines Inc.        144  7200       6344
+## 8514   DTW AZO       Pinnacle Airlines Inc.         66  3299       2093
+## 19876  AZO ORD American Eagle Airlines Inc.         54  2700       1451
 ## 21492  ORD OMA        United Air Lines Inc.         48  6798       5077
 ##       Aircraft Distance
 ## 8404       629      750
-## 20147      675      235
+## 8514       629      113
+## 19876      675      122
 ## 21492      694      416
 ```
 
@@ -254,8 +255,8 @@ bench::mark(
 ## # A tibble: 2 x 6
 ##   expression                                            min median
 ##   <bch:expr>                                          <bch> <bch:>
-## 1 shortest_paths(network, from = 1, to = 10)          145us  169us
-## 2 k_shortest_paths(network, from = 1, to = 10, k = 1) 534us  610us
+## 1 shortest_paths(network, from = 1, to = 10)          144us  160us
+## 2 k_shortest_paths(network, from = 1, to = 10, k = 1) 532us  588us
 ## # ... with 3 more variables: `itr/sec` <dbl>, mem_alloc <bch:byt>,
 ## #   `gc/sec` <dbl>
 ```
@@ -279,8 +280,8 @@ bench::mark(
 ## # A tibble: 2 x 6
 ##   expression                                                    min  median
 ##   <bch:expr>                                                <bch:t> <bch:t>
-## 1 all_simple_paths(network, from = 1, to = 5, mode = "all")  51.7ms  53.7ms
-## 2 k_shortest_paths(network, from = 1, to = 5, k = 1)        430.9us 486.6us
+## 1 all_simple_paths(network, from = 1, to = 5, mode = "all")  47.8ms  47.8ms
+## 2 k_shortest_paths(network, from = 1, to = 5, k = 1)        431.4us 459.1us
 ## # ... with 3 more variables: `itr/sec` <dbl>, mem_alloc <bch:byt>,
 ## #   `gc/sec` <dbl>
 ```

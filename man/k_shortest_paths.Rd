@@ -43,7 +43,7 @@ you back a list of character vectors paths.
 \examples{
 my_graph <- data.frame(source = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
                        sink = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
-                       weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5))
+                       weight = c(1, 1, 1.5, 5, 1.5, 2.5, 1.5, 0.5, 0.5, 0.5))
 k_shortest_paths(graph_df = my_graph, from = 1, to = 6, k = 4)
 k_shortest_paths(graph_df = my_graph, from = 1, to = 6, k = 4, edge_penalty = 2)
 

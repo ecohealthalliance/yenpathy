@@ -5,7 +5,7 @@ options(yenpathy.verbose = FALSE)
 graph_int <- data.frame(
   source = c(6, 1, 8, 6, 6, 3, 6, 4, 5, 7),
   sink = c(1, 8, 2, 2, 3, 2, 4, 5, 7, 2),
-  weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+  weight = c(1, 1, 1.5, 5, 1.5, 2.5, 1.5, 0.5, 0.5, 0.5)
 )
 start_int <- graph_int[[1]][1]
 end_int <- graph_int[[2]][3]
@@ -13,7 +13,7 @@ end_int <- graph_int[[2]][3]
 graph_char <- data.frame(
   source = c("JFK", "ATL", "MKE", "JFK", "JFK", "CLT", "JFK", "EWR", "GSP", "LGA"),
   sink = c("ATL", "MKE", "AVL", "AVL", "CLT", "AVL", "EWR", "GSP", "LGA", "AVL"),
-  weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5),
+  weight = c(1, 1, 1.5, 5, 1.5, 2.5, 1.5, 0.5, 0.5, 0.5),
   stringsAsFactors = FALSE
 )
 start_char <- graph_char[[1]][1]
@@ -62,7 +62,7 @@ test_that("factor representations of nodes throw an error", {
   graph_fct <- data.frame(
     source = c("JFK", "ATL", "MKE", "JFK", "JFK", "CLT", "JFK", "EWR", "GSP", "LGA"),
     sink = c("ATL", "MKE", "AVL", "AVL", "CLT", "AVL", "EWR", "GSP", "LGA", "AVL"),
-    weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5),
+    weight = c(1, 1, 1.5, 5, 1.5, 2.5, 1.5, 0.5, 0.5, 0.5),
     stringsAsFactors = TRUE
   )
   start_fct <- graph_fct[[1]][1]
