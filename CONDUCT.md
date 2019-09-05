@@ -1,13 +1,35 @@
 # Contributor Covenant Code of Conduct
 
+[Bosnian](http://contributor-covenant.org/version/1/4/bs/) 
+| [Deutsch](http://contributor-covenant.org/version/1/4/de/) 
+| [ελληνικά](http://contributor-covenant.org/version/1/4/el/) 
+| [English](http://contributor-covenant.org/version/1/4/) 
+| [Español](http://contributor-covenant.org/version/1/4/es/) 
+| [Français](http://contributor-covenant.org/version/1/4/fr/) 
+| [Italiano](http://contributor-covenant.org/version/1/3/0/it/) 
+| [日本語](http://contributor-covenant.org/version/1/3/0/ja/) 
+| [Magyar](http://contributor-covenant.org/version/1/3/0/hu/) 
+| [Nederlands](http://contributor-covenant.org/version/1/4/nl/) 
+| [Polski](http://contributor-covenant.org/version/1/4/pl/) 
+| [Português](http://contributor-covenant.org/version/1/4/pt/) 
+| [Português do Brasil](http://contributor-covenant.org/version/1/4/pt_br/) 
+| [Pусский](http://contributor-covenant.org/version/1/3/0/ru/) 
+| [Română](http://contributor-covenant.org/version/1/4/ro/) 
+| [Svenska](http://contributor-covenant.org/version/1/4/sv/) 
+| [Slovenščina](http://contributor-covenant.org/version/1/4/sl/) 
+| [Türkçe](http://contributor-covenant.org/version/1/4/tr/) 
+| [Українська](http://contributor-covenant.org/version/1/4/uk/) 
+| [한국어](http://contributor-covenant.org/version/1/4/ko/)
+
+
 ## Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as
 contributors and maintainers pledge to making participation in our project and
 our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, sex characteristics, gender identity and expression,
-level of experience, education, socio-economic status, nationality, personal
-appearance, race, religion, or sexual identity and orientation.
+size, disability, ethnicity, gender identity and expression, level of experience,
+nationality, personal appearance, race, religion, or sexual identity and
+orientation.
 
 ## Our Standards
 
@@ -23,7 +45,7 @@ include:
 Examples of unacceptable behavior by participants include:
 
 * The use of sexualized language or imagery and unwelcome sexual attention or
-  advances
+advances
 * Trolling, insulting/derogatory comments, and personal or political attacks
 * Public or private harassment
 * Publishing others' private information, such as a physical or electronic
@@ -45,17 +67,17 @@ threatening, offensive, or harmful.
 
 ## Scope
 
-This Code of Conduct applies within all project spaces, and it also applies when
-an individual is representing the project or its community in public spaces.
-Examples of representing a project or community include using an official
-project e-mail address, posting via an official social media account, or acting
-as an appointed representative at an online or offline event. Representation of
-a project may be further defined and clarified by project maintainers.
+This Code of Conduct applies both within project spaces and in public spaces
+when an individual is representing the project or its community. Examples of
+representing a project or community include using an official project e-mail
+address, posting via an official social media account, or acting as an appointed
+representative at an online or offline event. Representation of a project may be
+further defined and clarified by project maintainers.
 
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at [INSERT EMAIL ADDRESS]. All
+reported by contacting the project team at ross@ecohealthalliance.org. All
 complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
 obligated to maintain confidentiality with regard to the reporter of an incident.
@@ -68,9 +90,7 @@ members of the project's leadership.
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
-available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+available at [http://contributor-covenant.org/version/1/4][version]
 
-[homepage]: https://www.contributor-covenant.org
-
-For answers to common questions about this code of conduct, see
-https://www.contributor-covenant.org/faq
+[homepage]: http://contributor-covenant.org
+[version]: http://contributor-covenant.org/version/1/4/

@@ -1,28 +1,35 @@
 Package: yenpathy
 Title: Quickly Find K Shortest Paths Through a Weighted Graph
-Version: 0.1.0.0000
+Version: 0.1.0.9999
 Authors@R: c(
     person("Toph", "Allen", email = "allen@ecohealthalliance.org", role = c("aut", "cre"), comment = c(ORCID="0000-0003-4580-091X")),
     person("Noam", "Ross", role = "ctb", comment = c(ORCID="0000-0002-2136-0000")),
     person("Yan", "Qi", role = c("aut"), comment = "Original C++ implementation"),
     person("EcoHealth Alliance", role = c("cph"))
     )
-Description: yenpathy is a lightweight package to quickly find k shortest paths through a weighted graph.
+Description: Find k shortest paths through a weighted graph using Yen's
+    Algorithm (1971) <doi:10.1287/mnsc.17.11.7129>.
 Depends:
     R (>= 3.5.0)
-License: file LICENSE
+License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
-URL: BugReports: https://github.com/ecohealthalliance/yenpathy/
+URL: https://github.com/ecohealthalliance/yenpathy/
 BugReports: https://github.com/ecohealthalliance/yenpathy/issues
 LinkingTo: 
     Rcpp
 Imports: 
     Rcpp
-RoxygenNote: 6.1.1
-SystemRequirements: C++11
-Suggests: 
+Suggests:
+    spelling, 
     testthat (>= 2.1.0),
     covr,
     igraph,
-    tidygraph
+    tidygraph,
+    igraphdata,
+    bench,
+    knitr
+RoxygenNote: 6.1.1
+SystemRequirements: C++11
+VignetteBuilder: knitr
+Language: en-US

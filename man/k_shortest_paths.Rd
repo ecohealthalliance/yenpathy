@@ -4,19 +4,23 @@
 \alias{k_shortest_paths}
 \title{Return k shortest paths through a weighted graph.}
 \usage{
-k_shortest_paths(graph_df, start_vertex, end_vertex, k = 1,
-  edge_penalty = 0, verbose = getOption("yenpathy.verbose", FALSE))
+k_shortest_paths(graph_df, from, to, k = 1, col_from = 1, col_to = 2,
+  col_weights = "weight", edge_penalty = 0,
+  verbose = getOption("yenpathy.verbose", FALSE))
 }
 \arguments{
 \item{graph_df}{A data frame representing the graph's edges, with columns, in
 order, for start node, end node, and weight or cost. May also be an iGraph
 or tidygraph object.}
 
-\item{start_vertex}{The number or name of the starting vertex.}
+\item{from}{The number or name of the starting vertex.}
 
-\item{end_vertex}{The number or name of the path's ending vertex.}
+\item{to}{The number or name of the ending vertex.}
 
 \item{k}{The maximum number of paths to find, default 1.}
+
+\item{col_from, col_to, col_weights}{columns of the the start node, end node, and weight
+of edges in `graph_df`. May be integer or character.}
 
 \item{edge_penalty}{A constant to be added to each edge, if you wish to
 penalize routes with many edges.}
@@ -39,8 +43,8 @@ you back a list of character vectors paths.
 \examples{
 my_graph <- data.frame(source = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
                        sink = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
-                       weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5))
-k_shortest_paths(graph_df = my_graph, start_vertex = 1, end_vertex = 6, k = 4)
-k_shortest_paths(graph_df = my_graph, start_vertex = 1, end_vertex = 6, k = 4, edge_penalty = 2)
+                       weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5))
+k_shortest_paths(graph_df = my_graph, from = 1, to = 6, k = 4)
+k_shortest_paths(graph_df = my_graph, from = 1, to = 6, k = 4, edge_penalty = 2)
 
 }

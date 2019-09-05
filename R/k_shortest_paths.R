@@ -10,9 +10,11 @@
 #' @param graph_df A data frame representing the graph's edges, with columns, in
 #'   order, for start node, end node, and weight or cost. May also be an iGraph
 #'   or tidygraph object.
-#' @param start_vertex The number or name of the starting vertex.
-#' @param end_vertex The number or name of the path's ending vertex.
+#' @param from The number or name of the starting vertex.
+#' @param to The number or name of the ending vertex.
 #' @param k The maximum number of paths to find, default 1.
+#' @param col_from,col_to,col_weights columns of the the start node, end node, and weight
+#'   of edges in `graph_df`. May be integer or character.
 #' @param edge_penalty A constant to be added to each edge, if you wish to
 #'   penalize routes with many edges.
 #' @param verbose Be more verbose.
@@ -23,13 +25,14 @@
 #' @examples
 #' my_graph <- data.frame(source = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
 #'                        sink = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
-#'                        weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5))
-#' k_shortest_paths(graph_df = my_graph, start_vertex = 1, end_vertex = 6, k = 4)
-#' k_shortest_paths(graph_df = my_graph, start_vertex = 1, end_vertex = 6, k = 4, edge_penalty = 2)
+#'                        weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5))
+#' k_shortest_paths(graph_df = my_graph, from = 1, to = 6, k = 4)
+#' k_shortest_paths(graph_df = my_graph, from = 1, to = 6, k = 4, edge_penalty = 2)
 #'
 #' @export
 #'
-k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
+k_shortest_paths <- function(graph_df, from, to, k = 1,
+                             col_from = 1, col_to = 2, col_weights = "weight",
                              edge_penalty = 0,
                              verbose = getOption("yenpathy.verbose", FALSE)) {
   # Handle iGraph and tidygraph objects.
@@ -39,27 +42,32 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
     }
     graph_df <- igraph::as_data_frame(graph_df)
   }
+  col_from <- col_number_to_name(col_from, graph_df)
+  col_to <- col_number_to_name(col_to, graph_df)
+  col_weights <- col_number_to_name(col_weights, graph_df)
+
+
 
   # Handle unweighted graphs with only source and sink columns.
-  if (ncol(graph_df) == 2) graph_df[3] <- 1
+  if (is.null(graph_df[[col_weights]])) graph_df[[col_weights]] <- 1
 
   # Check column types
-  if (!inherits(graph_df[[3]], c("numeric", "integer"))) {
+  if (!inherits(graph_df[[col_weights]], c("numeric", "integer"))) {
     stop("Weight column must be numeric or integer")
   }
 
   # Refuse to handle graphs stored as factors
-  if (any(vapply(graph_df[c(1, 2)], is.factor, logical(1)))) {
+  if (any(vapply(graph_df[c(col_from, col_to)], is.factor, logical(1)))) {
     stop("Please use character or integer vectors for your node columns")
   }
 
   # Check for missing values and throw errors, so we don't crash once we're in C++.
   NAs <- vapply(graph_df, function(x) sum(is.na(x)), integer(1))
-  if (NAs[1] + NAs[2] > 0) stop("NA values are present in node columns")
-  if (NAs[3] > 0) warning("NA values are present in edge weights, and are omitted from the graph")
+  if (NAs[col_from] + NAs[col_to] > 0) stop("NA values are present in node columns")
+  if (NAs[col_weights] > 0) warning("NA values are present in edge weights; NA-weighted edges are omitted from the graph")
 
   nodes <- sort(unique(
-    c(graph_df[[1]], graph_df[[2]])
+    c(graph_df[[col_from]], graph_df[[col_to]])
   ))
 
   # If the graph we have received uses characters for its nodes, we convert them
@@ -68,22 +76,23 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
   # versions.
   if (class(nodes) == "character") {
     nodes_fact <- as.factor(nodes)
-    nodes_num <- as.integer(nodes_fact)
     node_labels <- labels(nodes_fact)
     node_levels <- levels(nodes_fact)
 
-    graph_df[, 1] <- as.numeric(factor(graph_df[, 1], levels = node_levels))
-    graph_df[, 2] <- as.numeric(factor(graph_df[, 2], levels = node_levels))
+    graph_df[, col_from] <- as.numeric(factor(graph_df[, col_from], levels = node_levels))
+    graph_df[, col_to] <- as.numeric(factor(graph_df[, col_to], levels = node_levels))
 
-    start_vertex <- as.numeric(factor(start_vertex, levels = node_levels))
-    end_vertex <- as.numeric(factor(end_vertex, levels = node_levels))
+    from <- as.numeric(factor(from, levels = node_levels))
+    to <- as.numeric(factor(to, levels = node_levels))
   }
 
-  graph_df[, 3] <- graph_df[, 3]  + edge_penalty
+  graph_df[, col_weights] <- graph_df[, col_weights]  + edge_penalty
+
+  graph_df <- graph_df[, c(col_from, col_to, col_weights)]
 
   vertex_num <- length(unique(nodes))
 
-  result <- .k_shortest_paths_Cpp(graph_df, start_vertex, end_vertex, k,
+  result <- .k_shortest_paths_Cpp(graph_df, from, to, k,
                                   vertex_num, verbose)
 
   # If our original graph had character nodes, we replace our numeric nodes with
@@ -95,4 +104,14 @@ k_shortest_paths <- function(graph_df, start_vertex, end_vertex, k = 1,
   }
 
   result
+}
+
+col_number_to_name <- function(x, df) {
+  if (is.numeric(x)) {
+    return(names(df)[x])
+  } else if (is.character(x)) {
+    return(x)
+  } else {
+    stop("Column specification must be integer or character")
+  }
 }

@@ -1,0 +1,155 @@
+---
+title: 'yenpathy: An R Package to Quickly Find K Shortest Paths Through a Weighted Graph'
+tags:
+  - R
+  - graphs
+  - graph algorithms
+  - network analysis
+  - k shortest paths
+authors:
+  - name: Toph Allen
+    orcid: 0000-0003-4580-091X
+    affiliation: 1
+  - name: Noam Ross
+    orcid: 0000-0002-2136-0000
+    affiliation: 1
+affiliations:
+ - name: EcoHealth Alliance, New York, NY, USA
+   index: 1
+citation_author: Allen and Ross
+date: 2019-09-05
+year: 2019
+bibliography: paper.bib
+output: rticles::joss_article #requires noamross/rticles@joss
+csl: apa.csl
+journal: JOSS
+---
+
+# Summary
+
+Finding the shortest paths through a network is a task important to many
+problems, from transportation routing to social network analysis. **yenpathy**
+provides a method to find the _k_ shortest paths through a network using Yen's
+Algorithm [@Yen_1971], previously not available in the R Langauge [@R].
+
+**yenpathy** provides the function `k_shortest_paths()`, which returns *k*
+shortest paths between two nodes in a graph, ordered from shortest to longest,
+with length determined by the sum of weights of consecutive edges. The function
+wraps a C++ implementation of Yen’s algorithm created by Yan Qi [@ksp]. It works
+correctly with stand-alone edge lists, as well as with objects from the
+**igraph** [@igraph] and **tidygraph** [@tidygraph] packages.
+
+# Usage
+
+To find shortest paths through a network, pass `k_shortest_paths()` a data frame
+with rows representing the edges of a graph (`graph_df`), as well as supplying
+`from` and `to` nodes in `graph_df`. The function will return a list containing
+up to `k` (default 1) vectors representing paths through the graph:
+
+```{r}
+library(yenpathy)
+
+small_graph <- data.frame(
+start = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
+end = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
+weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+)
+
+k_shortest_paths(small_graph, from = 1, to = 6, k = 4)
+```
+
+You can also pass an `edge_penalty`, a number which is added to all of the edge
+weights, effectively penalizing paths consisting of more edges.
+
+```{r}
+k_shortest_paths(small_graph, from = 1, to = 6, k = 4, edge_penalty = 1)
+```
+
+## API
+
+`k_shortest_paths()` takes a data frame as its first argument (`graph_df`). In
+place of a data frame, you can provide an **igraph** [@igraph] or **tidygraph**
+[@tidygraph] graph object, which will be converted to a data frame using
+`igraph::as_data_frame()`.
+
+By default, the first and second columns are assumed to contain the names of the
+the start and end nodes, respectively. These may be either integers or character
+vectors. If there is a column named "weights", it is used for edge weights.  You
+can change these defaults by passing column numbers or names to the `col_from`,
+`col_to`, and `col_weights` arguments.
+
+## An example using flight data
+
+A common application for Yen's algorithm is in transportation planning, when
+one wants to find the shortest routes between stops such as airports. Here we use
+the `USairports` dataset from the **igraphdata** package to demonstrate how to find
+the *k* shortest routes between airports in Bangor, ME (BGR) and Omaha, NE (OMA).
+
+```{r, message=FALSE}
+library(igraph)
+library(igraphdata)
+data("USairports")
+paths <- k_shortest_paths(USairports, "BGR", "OMA",
+                          k = 20, col_weights = "Distance")
+paths[1:5]
+```
+
+The result shows the airport *nodes*, but we can use the `paths` object to look
+up the *edges*, or flights, that make up these itineraries. In this case, we will
+select just the carriers with the most seats for each leg, as `USAairports` includes
+multiple edges for each carrier operating flights between an airport pair:
+
+```{r}
+usa <- as_data_frame(USairports)
+itineraries <- 
+  lapply(paths, function(.x) {
+    n_stops <- length(.x)
+    legs <- cbind(.x[1:(n_stops - 1)], .x[2:n_stops])
+    flights <- apply(legs, 1, function(.z) {
+      fl <- subset(usa, from == .z[1] & to == .z[2])
+      fl <- subset(fl, Seats == max(Seats))
+    })
+    do.call(rbind, flights)
+  })
+itineraries[1:5]
+```
+
+We can calculate the total distance of each itinerary:
+
+```{r}
+sapply(itineraries, function(.x) sum(.x[["Distance"]]))
+```
+
+### Performance
+
+A number of packages, such as **igraph** and **dodgr**,  provide functions to 
+find the shortest path between two nodes on a network, or *all* "simple" (non-looping)
+paths between nodes. For the *single shortest* path, these packages can be faster than
+**yenpathy**:
+
+```{r}
+library(bench)
+set.seed(42)
+network <- sample_smallworld(1, 20, 4, .05)
+bench::mark(
+  shortest_paths(network, from = 1, to = 10),
+  k_shortest_paths(network, from = 1, to = 10, k = 1),
+  check = FALSE
+)
+```
+
+However, to calculate *k* shortest paths, one generally has to calculate *all*
+such paths, and later subset. Doing this with `igraph::all_simple_paths()` can
+be considerably slower, even on a very simple network, and impossible due to
+memory or time constraints for large, densely-connected graphs.
+
+```{r}
+network <- sample_smallworld(1, 8, 3, .05)
+bench::mark(
+  all_simple_paths(network, from = 1, to = 5, mode = "all"),
+  k_shortest_paths(network, from = 1, to = 5, k = 1),
+  check = FALSE
+)
+```
+
+# References
