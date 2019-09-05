@@ -39,9 +39,6 @@ wraps a C++ implementation of Yen’s algorithm created by Yan Qi [@ksp]. It wor
 correctly with stand-alone edge lists, as well as with objects from the
 **igraph** [@igraph] and **tidygraph** [@tidygraph] packages.
 
-The package is currently in use at EcoHealth Alliance for an ongoing flight
-network modeling project.
-
 # Usage
 
 To find shortest paths through a network, pass `k_shortest_paths()` a data frame
@@ -255,8 +252,8 @@ bench::mark(
 ## # A tibble: 2 x 6
 ##   expression                                            min median
 ##   <bch:expr>                                          <bch> <bch:>
-## 1 shortest_paths(network, from = 1, to = 10)          144us  160us
-## 2 k_shortest_paths(network, from = 1, to = 10, k = 1) 532us  588us
+## 1 shortest_paths(network, from = 1, to = 10)          143us  161us
+## 2 k_shortest_paths(network, from = 1, to = 10, k = 1) 533us  572us
 ## # ... with 3 more variables: `itr/sec` <dbl>, mem_alloc <bch:byt>,
 ## #   `gc/sec` <dbl>
 ```
@@ -280,10 +277,17 @@ bench::mark(
 ## # A tibble: 2 x 6
 ##   expression                                                    min  median
 ##   <bch:expr>                                                <bch:t> <bch:t>
-## 1 all_simple_paths(network, from = 1, to = 5, mode = "all")  47.8ms  47.8ms
-## 2 k_shortest_paths(network, from = 1, to = 5, k = 1)        431.4us 459.1us
+## 1 all_simple_paths(network, from = 1, to = 5, mode = "all")  49.2ms  49.2ms
+## 2 k_shortest_paths(network, from = 1, to = 5, k = 1)        427.6us 482.5us
 ## # ... with 3 more variables: `itr/sec` <dbl>, mem_alloc <bch:byt>,
 ## #   `gc/sec` <dbl>
 ```
+
+# Acknowledgment of Financial Support
+
+**yenpathy** was developed in part with financial support from the U.S. Dept. of
+Homeland Security (70RSAT18CB0031001). The package is currently in use at
+EcoHealth Alliance for an ongoing project creating a flight network model to
+estimate the possible spread of disease outbreaks.
 
 # References
