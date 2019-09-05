@@ -21,7 +21,7 @@ planning.
 There are already comprehensive network analysis packages in R, notably
 [**igraph**](http://igraph.org/r/) and its tidyverse-compatible
 interface [**tidygraph**](https://github.com/thomasp85/tidygraph).
-**yenpathy** complements these by doing one thing well.
+`yenpathy` complements these by doing one thing well.
 
 `yenpathy` provides the function `k_shortest_paths()`, which returns *k*
 shortest paths between two nodes in a graph, ordered from shortest to
@@ -31,18 +31,18 @@ edges.
 ## Installation
 
 Install yenpathy from GitHub with
-[devtools](https://github.com/hadley/devtools):
+[remotes](https://github.com/r-lib/remotes):
 
 ``` r
-library(devtools)
+library(remotes)
 install_github("ecohealthalliance/yenpathy")
 ```
 
 ## Usage
 
 Pass `k_shortest_paths()` a data frame (`graph_df`) with rows
-representing the edges of a graph, as well as a `start_vertex` and
-`end_vertex`, referencing nodes in `graph_df`.
+representing the edges of a graph, as well as a `from` and `to`,
+specifying starting and ending nodes in `graph_df`.
 
 ``` r
 library(nycflights13)
@@ -51,28 +51,28 @@ library(yenpathy)
 small_graph <- data.frame(
   start = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
   end = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
-  weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+  weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
 )
 
-k_shortest_paths(small_graph, start_vertex = 1, end_vertex = 6)
+k_shortest_paths(small_graph, from = 1, to = 6)
 #> [[1]]
 #> [1] 1 2 7 3 6
 ```
 
-The function will return a list containing up to `k` (by default 1)
-vectors representing paths through the graph.
+The function will return a list containing up to `k` (default 1) vectors
+representing paths through the graph.
 
 ``` r
 k_shortest_paths(small_graph,
-                 start_vertex = 1, end_vertex = 6, k = 4)
+                 from = 1, to = 6, k = 4)
 #> [[1]]
 #> [1] 1 2 7 3 6
 #> 
 #> [[2]]
-#> [1] 1 4 5 6
+#> [1] 1 8 6
 #> 
 #> [[3]]
-#> [1] 1 8 6
+#> [1] 1 4 5 6
 #> 
 #> [[4]]
 #> [1] 1 6
@@ -83,21 +83,21 @@ the edge weights, effectively penalizing paths consisting of more edges.
 
 ``` r
 k_shortest_paths(small_graph,
-                 start_vertex = 1,
-                 end_vertex = 6,
+                 from = 1,
+                 to = 6,
                  k = 4,
                  edge_penalty = 1)
 #> [[1]]
 #> [1] 1 8 6
 #> 
 #> [[2]]
-#> [1] 1 4 5 6
-#> 
-#> [[3]]
 #> [1] 1 6
 #> 
-#> [[4]]
+#> [[3]]
 #> [1] 1 2 7 3 6
+#> 
+#> [[4]]
+#> [1] 1 4 5 6
 ```
 
 ## Implementation

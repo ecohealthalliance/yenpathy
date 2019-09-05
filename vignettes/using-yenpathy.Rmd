@@ -32,14 +32,14 @@ by doing one thing well.
 
 Install yenpathy from GitHub with [remotes](https://github.com/r-lib/remotes):
 
-```r
+```{r eval=FALSE}
 library(remotes)
 install_github("ecohealthalliance/yenpathy")
 ```
 
 ## Usage
 
-Pass `k_shortest_paths()` a data frame (`graph_df`) with rows representing the edges of a graph, as well as a `start_vertex` and `end_vertex`, referencing nodes in `graph_df`. The function will return a list containing up to `k` (by default 1) vectors representing paths through the graph:
+Pass `k_shortest_paths()` a data frame (`graph_df`) with rows representing the edges of a graph, as well as `from` and `to`, specifying starting and ending nodes in `graph_df`. The function will return a list containing up to `k` (default 1) vectors representing paths through the graph:
 
 ```{r, message = FALSE}
 library(yenpathy)
@@ -47,16 +47,16 @@ library(yenpathy)
 small_graph <- data.frame(
 start = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
 end = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
-weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
 )
 
-k_shortest_paths(small_graph, start_vertex = 1, end_vertex = 6)
+k_shortest_paths(small_graph, from = 1, to = 6)
 ```
 
 
 ```{r}
 k_shortest_paths(small_graph,
-start_vertex = 1, end_vertex = 6, k = 4)
+from = 1, to = 6, k = 4)
 ```
 
 You can also pass an `edge_penalty`, a number which is added to all of the edge
@@ -64,8 +64,8 @@ weights, effectively penalizing paths consisting of more edges.
 
 ```{r}
 k_shortest_paths(small_graph,
-start_vertex = 1,
-end_vertex = 6,
+from = 1,
+to = 6,
 k = 4,
 edge_penalty = 1)
 ```
@@ -76,8 +76,8 @@ edge_penalty = 1)
 expects the first and second columns to contain the names of the the start and
 end nodes, respectively. These may be either integers or character vectors. If
 there is a column named "weights", it is used for edge weights.  You can change
-these defaults by passing column numbers or names to the `from`, `to`, and
-`weights` arguments.
+these defaults by passing column numbers or names to the `col_from`, `col_to`, and
+`col_weights` arguments.
 
 In place of a data frame, you can provide an [`igraph`](https://igraph.org/r/)
 or [`tidygraph`](https://github.com/thomasp85/tidygraph) graph object, which
@@ -94,7 +94,7 @@ the *k* shortest routes between airports in Bangor, ME (BGR) and Omaha, NE (OMA)
 library(igraph)
 library(igraphdata)
 data("USairports")
-paths <- k_shortest_paths(USairports, "BGR", "OMA", k = 20, weights = "Distance")
+paths <- k_shortest_paths(USairports, "BGR", "OMA", k = 20, col_weights = "Distance")
 paths[1:5]
 ```
 
@@ -138,7 +138,7 @@ set.seed(42)
 network <- sample_smallworld(1, 20, 4, .05)
 bench::mark(
   shortest_paths(network, from = 1, to = 10),
-  k_shortest_paths(network, start_vertex = 1, end_vertex = 10, k = 1),
+  k_shortest_paths(network, from = 1, to = 10, k = 1),
   check = FALSE
 )
 ```
@@ -152,7 +152,7 @@ network:
 network <- sample_smallworld(1, 8, 3, .05)
 bench::mark(
   all_simple_paths(network, from = 1, to = 5, mode = "all"),
-  k_shortest_paths(network, start_vertex = 1, end_vertex = 5, k = 1),
+  k_shortest_paths(network, from = 1, to = 5, k = 1),
   check = FALSE
 )
 ```

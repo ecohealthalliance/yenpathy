@@ -8,13 +8,13 @@ Authors@R: c(
     person("EcoHealth Alliance", role = c("cph"))
     )
 Description: Find k shortest paths through a weighted graph using Yen's
-    Algorithm (1971) <doi:10.1287/mnsc.17.11.7129>
+    Algorithm (1971) <doi:10.1287/mnsc.17.11.7129>.
 Depends:
     R (>= 3.5.0)
 License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
-URL: BugReports: https://github.com/ecohealthalliance/yenpathy/
+URL: https://github.com/ecohealthalliance/yenpathy/
 BugReports: https://github.com/ecohealthalliance/yenpathy/issues
 LinkingTo: 
     Rcpp

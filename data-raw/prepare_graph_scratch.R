@@ -5,18 +5,18 @@ library(purrr)
 graph_int.original <- data.frame(
   source = c(1, 4, 5, 1, 1, 8, 1, 2, 7, 3),
   sink = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
-  weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+  weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
 )
 graph_int <- data.frame(
   source = c(6, 1, 8, 6, 6, 3, 6, 4, 5, 7),
   sink = c(1, 8, 2, 2, 3, 2, 4, 5, 7, 2),
-  weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+  weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
 )
 result_int <- k_shortest_paths(graph_df = graph_int, start_vertex = 6, end_vertex = 2, k = 4, edge_penalty = 2)
 
 graph_char <- data.frame(source = c("JFK", "ATL", "MKE", "JFK", "JFK", "CLT", "JFK", "EWR", "GSP", "LGA"),
                          sink = c("ATL", "MKE", "AVL", "AVL", "CLT", "AVL", "EWR", "GSP", "LGA", "AVL"),
-                         weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5),
+                         weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5),
                          stringsAsFactors = FALSE)
 
 graph_df <- graph_char

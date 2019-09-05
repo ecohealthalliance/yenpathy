@@ -10,7 +10,7 @@ unweighted_graph <- data.frame(
 weighted_graph <- data.frame(
   source = c(6, 1, 8, 6, 6, 3, 6, 4, 5, 7),
   sink = c(1, 8, 2, 2, 3, 2, 4, 5, 7, 2),
-  weight = c(1, 1, 1, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
+  weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
 )
 
 start_node <- unweighted_graph[[1]][1]
