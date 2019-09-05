@@ -19,14 +19,16 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-`yenpathy` is an R package to quickly find *k* shortest paths through a weighted
+**yenpathy** is an R package to quickly find *k* shortest paths through a weighted
 graph using Yen's Algorithm [@Yen_1971]. This algorithm has numerous
 applications in fields from transportation planning to social network analysis.
 
-There are already comprehensive network analysis packages in R, notably [**igraph**](http://igraph.org/r/) and its tidyverse-compatible interface [**tidygraph**](https://github.com/thomasp85/tidygraph). **yenpathy** complements these
-by doing one thing well.
+There are already comprehensive network analysis packages in R, notably
+[**igraph**](http://igraph.org/r/) and its tidyverse-compatible interface
+[**tidygraph**](https://github.com/thomasp85/tidygraph).**yenpathy** complements
+these by doing one thing well.
 
-`yenpathy` provides the function `k_shortest_paths()`, which returns *k* shortest paths between two nodes in a graph, ordered from shortest to longest, with length determined by the sum of weights of consecutive edges.
+**yenpathy** provides the function `k_shortest_paths()`, which returns *k* shortest paths between two nodes in a graph, ordered from shortest to longest, with length determined by the sum of weights of consecutive edges.
 
 ## Installation
 
@@ -39,7 +41,10 @@ install_github("ecohealthalliance/yenpathy")
 
 ## Usage
 
-Pass `k_shortest_paths()` a data frame (`graph_df`) with rows representing the edges of a graph, as well as `from` and `to`, specifying starting and ending nodes in `graph_df`. The function will return a list containing up to `k` (default 1) vectors representing paths through the graph:
+To find shortest paths through a network, pass `k_shortest_paths()` a data frame
+with rows representing the edges of a graph (`graph_df`), as well as supplying
+`from` and `to` nodes in `graph_df`. The function will return a list containing
+up to `k` (default 1) vectors representing paths through the graph:
 
 ```{r, message = FALSE}
 library(yenpathy)
@@ -50,38 +55,28 @@ end = c(4, 5, 6, 6, 8, 6, 2, 7, 3, 6),
 weight = c(1, 1, 1.5, 5, 1.5, 2, 1, 0.5, 0.5, 0.5)
 )
 
-k_shortest_paths(small_graph, from = 1, to = 6)
-```
-
-
-```{r}
-k_shortest_paths(small_graph,
-from = 1, to = 6, k = 4)
+k_shortest_paths(small_graph, from = 1, to = 6, k = 4)
 ```
 
 You can also pass an `edge_penalty`, a number which is added to all of the edge
 weights, effectively penalizing paths consisting of more edges.
 
 ```{r}
-k_shortest_paths(small_graph,
-from = 1,
-to = 6,
-k = 4,
-edge_penalty = 1)
+k_shortest_paths(small_graph, from = 1, to = 6, k = 4, edge_penalty = 1)
 ```
 
 ### API
 
-`k_shortest_paths()` takes a data frame as its first argument (`graph_df`). It
-expects the first and second columns to contain the names of the the start and
-end nodes, respectively. These may be either integers or character vectors. If
-there is a column named "weights", it is used for edge weights.  You can change
-these defaults by passing column numbers or names to the `col_from`, `col_to`, and
-`col_weights` arguments.
+`k_shortest_paths()` takes a data frame as its first argument (`graph_df`). In
+place of a data frame, you can provide an [**igraph**](https://igraph.org/r/) or
+[**tidygraph**](https://github.com/thomasp85/tidygraph) graph object, which will
+be converted to a data frame using `igraph::as_data_frame()`.
 
-In place of a data frame, you can provide an [`igraph`](https://igraph.org/r/)
-or [`tidygraph`](https://github.com/thomasp85/tidygraph) graph object, which
-will be converted to a data frame using `igraph::as_data_frame()`.
+By default, the first and second columns are assumed to contain the names of the
+the start and end nodes, respectively. These may be either integers or character
+vectors. If there is a column named "weights", it is used for edge weights.  You
+can change these defaults by passing column numbers or names to the `col_from`,
+`col_to`, and `col_weights` arguments.
 
 ## An example using flight data
 
@@ -98,10 +93,10 @@ paths <- k_shortest_paths(USairports, "BGR", "OMA", k = 20, col_weights = "Dista
 paths[1:5]
 ```
 
-The result shows the airport _nodes_, but we can use the `path` object to look
-up the _edges_, or flights, that make up these itineraries. In this case, I will
+The result shows the airport *nodes*, but we can use the `paths` object to look
+up the *edges*, or flights, that make up these itineraries. In this case, we will
 select just the carriers with the most seats for each leg, as `USAairports` includes
-multiple carriers (edges) for each airport pair:
+multiple edges for each carrier operating flights between an airport pair:
 
 ```{r}
 usa <- as_data_frame(USairports)
@@ -128,8 +123,8 @@ sapply(itineraries, function(.x) sum(.x[["Distance"]]))
 ### Performance
 
 A number of packages, such as **igraph** and **dodgr**,  provide functions to 
-find the shortest path between two nodes on a network, or _all_ "simple" (non-looping)
-paths between nodes. For the _shortest_ path, these packages can be faster than
+find the shortest path between two nodes on a network, or *all* "simple" (non-looping)
+paths between nodes. For the *single shortest* path, these packages can be faster than
 **yenpathy**:
 
 ```{r}
@@ -143,10 +138,10 @@ bench::mark(
 )
 ```
 
-However, to calculate _k_ shortest paths, one generally has to calculate _all_
-such paths, and later subset. Here,  you can see that doing so with
-`igraph::all_simple_paths()` is considerably slower, and even on a very simple
-network:
+However, to calculate *k* shortest paths, one generally has to calculate *all*
+such paths, and later subset. Doing this with `igraph::all_simple_paths()` can
+be considerably slower, even on a very simple network, and impossible due to
+memory or time constraints for large, densely-connected graphs.
 
 ```{r}
 network <- sample_smallworld(1, 8, 3, .05)

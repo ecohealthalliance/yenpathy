@@ -29,3 +29,5 @@ rsconnect/
 .Rproj.user
 doc
 Meta
+# Extraneous files associated with paper.md
+inst/paper/*.pdf

@@ -12,8 +12,8 @@ coverage](https://codecov.io/gh/ecohealthalliance/yenpathy/branch/master/graph/b
 
 ## Overview
 
-`yenpathy` is an R package to quickly find *k* shortest paths through a
-weighted graph using [Yen’s
+**yenpathy** is an R package to quickly find *k* shortest paths through
+a weighted graph using [Yen’s
 Algorithm](https://dx.doi.org/10.1287/mnsc.17.11.712). This algorithm
 has numerous applications in network analysis, such as transportation
 planning.
@@ -21,16 +21,16 @@ planning.
 There are already comprehensive network analysis packages in R, notably
 [**igraph**](http://igraph.org/r/) and its tidyverse-compatible
 interface [**tidygraph**](https://github.com/thomasp85/tidygraph).
-`yenpathy` complements these by doing one thing well.
+**yenpathy** complements these by doing one thing well.
 
-`yenpathy` provides the function `k_shortest_paths()`, which returns *k*
-shortest paths between two nodes in a graph, ordered from shortest to
-longest, with length determined by the sum of weights of consecutive
+**yenpathy** provides the function `k_shortest_paths()`, which returns
+*k* shortest paths between two nodes in a graph, ordered from shortest
+to longest, with length determined by the sum of weights of consecutive
 edges.
 
 ## Installation
 
-Install yenpathy from GitHub with
+Install **yenpathy** from GitHub with
 [remotes](https://github.com/r-lib/remotes):
 
 ``` r
@@ -69,10 +69,10 @@ k_shortest_paths(small_graph,
 #> [1] 1 2 7 3 6
 #> 
 #> [[2]]
-#> [1] 1 8 6
+#> [1] 1 4 5 6
 #> 
 #> [[3]]
-#> [1] 1 4 5 6
+#> [1] 1 8 6
 #> 
 #> [[4]]
 #> [1] 1 6
