@@ -29,8 +29,9 @@ journal: JOSS
 
 Finding the shortest paths through a network is a task important to many
 problems, from transportation routing to social network analysis. **yenpathy**
-provides a method to find the _k_ shortest paths through a network using Yen's
-Algorithm [@Yen_1971], previously not available in the R Langauge [@R].
+provides a method to find several shortest paths through a network, up to any
+number _k_, using Yen's Algorithm [@Yen_1971], previously not available in the
+R Language [@R].
 
 **yenpathy** provides the function `k_shortest_paths()`, which returns *k*
 shortest paths between two nodes in a graph, ordered from shortest to longest,
@@ -232,7 +233,7 @@ sapply(itineraries, function(.x) sum(.x[["Distance"]]))
 ### Performance
 
 A number of packages, such as **igraph** and **dodgr**,  provide functions to 
-find the shortest path between two nodes on a network, or *all* "simple" (non-looping)
+find the shortest path between two nodes on a network, or *all* simple (non-looping)
 paths between nodes. For the *single shortest* path, these packages can be faster than
 **yenpathy**:
 
@@ -252,8 +253,8 @@ bench::mark(
 ## # A tibble: 2 x 6
 ##   expression                                            min median
 ##   <bch:expr>                                          <bch> <bch:>
-## 1 shortest_paths(network, from = 1, to = 10)          143us  161us
-## 2 k_shortest_paths(network, from = 1, to = 10, k = 1) 533us  572us
+## 1 shortest_paths(network, from = 1, to = 10)          205us  229us
+## 2 k_shortest_paths(network, from = 1, to = 10, k = 1) 586us  692us
 ## # ... with 3 more variables: `itr/sec` <dbl>, mem_alloc <bch:byt>,
 ## #   `gc/sec` <dbl>
 ```
@@ -277,8 +278,8 @@ bench::mark(
 ## # A tibble: 2 x 6
 ##   expression                                                    min  median
 ##   <bch:expr>                                                <bch:t> <bch:t>
-## 1 all_simple_paths(network, from = 1, to = 5, mode = "all")  49.2ms  49.2ms
-## 2 k_shortest_paths(network, from = 1, to = 5, k = 1)        427.6us 482.5us
+## 1 all_simple_paths(network, from = 1, to = 5, mode = "all")  68.2ms  68.2ms
+## 2 k_shortest_paths(network, from = 1, to = 5, k = 1)        485.1us   573us
 ## # ... with 3 more variables: `itr/sec` <dbl>, mem_alloc <bch:byt>,
 ## #   `gc/sec` <dbl>
 ```
