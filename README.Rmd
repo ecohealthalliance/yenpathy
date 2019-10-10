@@ -30,6 +30,8 @@ by doing one thing well.
 
 **yenpathy** provides the function `k_shortest_paths()`, which returns *k* shortest paths between two nodes in a graph, ordered from shortest to longest, with length determined by the sum of weights of consecutive edges.
 
+For more examples, and to browse documentation, visit this repo's [GitHub Pages site](https://ecohealthalliance.github.io/yenpathy/).
+
 ## Installation
 
 Install **yenpathy** from GitHub with [remotes](https://github.com/r-lib/remotes):
