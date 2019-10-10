@@ -28,8 +28,8 @@ interface [**tidygraph**](https://github.com/thomasp85/tidygraph).
 to longest, with length determined by the sum of weights of consecutive
 edges.
 
-For more examples, and to browse documentation, visit this repo’s
-[GitHub Pages site](https://ecohealthalliance.github.io/yenpathy/).
+For more examples and documentation, visit this repo’s [GitHub Pages
+site](https://ecohealthalliance.github.io/yenpathy/).
 
 ## Installation
 
