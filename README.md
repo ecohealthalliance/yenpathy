@@ -38,7 +38,7 @@ Install **yenpathy** from GitHub with
 
 ``` r
 library(remotes)
-install_github("ecohealthalliance/yenpathy")
+install_github("ecohealthalliance/yenpathy", build_vignettes = TRUE)
 ```
 
 ## Usage
@@ -101,6 +101,16 @@ k_shortest_paths(small_graph,
 #> 
 #> [[4]]
 #> [1] 1 2 7 3 6
+```
+
+Further examples can be found in the Package’s vignette. This can be
+found on the package’s GitHub Pages site, or viewed in R;
+
+``` r
+browseVignettes("yenpathy")
+#> No vignettes found by browseVignettes("yenpathy")
+vignette("using-yenpathy")
+#> Warning: vignette 'using-yenpathy' not found
 ```
 
 ## Implementation
