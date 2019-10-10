@@ -262,8 +262,8 @@
 <a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; # A tibble: 2 x 6</span></a>
 <a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;   expression                                            min median</span></a>
 <a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;   &lt;bch:expr&gt;                                          &lt;bch&gt; &lt;bch:&gt;</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; 1 shortest_paths(network, from = 1, to = 10)          125µs  140µs</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; 2 k_shortest_paths(network, from = 1, to = 10, k = 1) 531µs  561µs</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; 1 shortest_paths(network, from = 1, to = 10)          125µs  143µs</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; 2 k_shortest_paths(network, from = 1, to = 10, k = 1) 540µs  581µs</span></a>
 <a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; # … with 3 more variables: `itr/sec` &lt;dbl&gt;, mem_alloc &lt;bch:byt&gt;,</span></a>
 <a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; #   `gc/sec` &lt;dbl&gt;</span></a></code></pre></div>
 <p>However, to calculate <em>k</em> shortest paths, one generally has to calculate <em>all</em> such paths, and later subset. Doing this with <code><a href="https://rdrr.io/pkg/igraph/man/all_simple_paths.html">igraph::all_simple_paths()</a></code> can be considerably slower, even on a very simple network, and impossible due to memory or time constraints for large, densely-connected graphs.</p>
@@ -276,8 +276,8 @@
 <a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; # A tibble: 2 x 6</span></a>
 <a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;   expression                                                    min  median</span></a>
 <a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;   &lt;bch:expr&gt;                                                &lt;bch:t&gt; &lt;bch:t&gt;</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; 1 all_simple_paths(network, from = 1, to = 5, mode = "all")  41.9ms  42.1ms</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; 2 k_shortest_paths(network, from = 1, to = 5, k = 1)        423.5µs 456.5µs</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; 1 all_simple_paths(network, from = 1, to = 5, mode = "all")  42.5ms  42.7ms</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; 2 k_shortest_paths(network, from = 1, to = 5, k = 1)        429.2µs 463.8µs</span></a>
 <a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; # … with 3 more variables: `itr/sec` &lt;dbl&gt;, mem_alloc &lt;bch:byt&gt;,</span></a>
 <a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; #   `gc/sec` &lt;dbl&gt;</span></a></code></pre></div>
 </div>

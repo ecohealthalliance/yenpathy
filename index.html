@@ -96,7 +96,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install <strong>yenpathy</strong> from GitHub with <a href="https://github.com/r-lib/remotes">remotes</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(remotes)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"ecohealthalliance/yenpathy"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"ecohealthalliance/yenpathy"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -145,6 +145,11 @@
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; [[4]]</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; [1] 1 2 7 3 6</span></a></code></pre></div>
+<p>Further examples can be found in the Package’s vignette. This can be found on the package’s GitHub Pages site, or viewed in R;</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="st">"yenpathy"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; No vignettes found by browseVignettes("yenpathy")</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"using-yenpathy"</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; Warning: vignette 'using-yenpathy' not found</span></a></code></pre></div>
 </div>
 <div id="implementation" class="section level2">
 <h2 class="hasAnchor">
