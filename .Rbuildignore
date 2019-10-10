@@ -10,3 +10,6 @@
 ^Meta$
 ^vignettes/paper.md
 ^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
