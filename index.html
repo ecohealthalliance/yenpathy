@@ -6,20 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quickly Find K Shortest Paths Through a Weighted Graph • yenpathy</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Quickly Find K Shortest Paths Through a Weighted Graph">
 <meta property="og:description" content="Find k shortest paths through a weighted graph using Yen's
     Algorithm (1971) &lt;doi:10.1287/mnsc.17.11.7129&gt;.">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -62,7 +62,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ecohealthalliance/yenpathy">
+  <a href="https://github.com/ecohealthalliance/yenpathy/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -86,7 +86,7 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p><strong>yenpathy</strong> is an R package to quickly find <em>k</em> shortest paths through a weighted graph using <a href="https://dx.doi.org/10.1287/mnsc.17.11.712">Yen’s Algorithm</a>. This algorithm has numerous applications in network analysis, such as transportation planning.</p>
+<p><strong>yenpathy</strong> is an R package to quickly find <em>k</em> shortest paths through a weighted directed graph using <a href="https://dx.doi.org/10.1287/mnsc.17.11.712">Yen’s Algorithm</a>. This algorithm has numerous applications in network analysis, such as transportation planning.</p>
 <p>There are already comprehensive network analysis packages in R, notably <a href="http://igraph.org/r/"><strong>igraph</strong></a> and its tidyverse-compatible interface <a href="https://github.com/thomasp85/tidygraph"><strong>tidygraph</strong></a>. <strong>yenpathy</strong> complements these by doing one thing well.</p>
 <p><strong>yenpathy</strong> provides the function <code><a href="reference/k_shortest_paths.html">k_shortest_paths()</a></code>, which returns <em>k</em> shortest paths between two nodes in a graph, ordered from shortest to longest, with length determined by the sum of weights of consecutive edges.</p>
 <p>For more examples and documentation, visit this repo’s <a href="https://ecohealthalliance.github.io/yenpathy/">GitHub Pages site</a>.</p>
@@ -95,61 +95,61 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install <strong>yenpathy</strong> from GitHub with <a href="https://github.com/r-lib/remotes">remotes</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(remotes)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"ecohealthalliance/yenpathy"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">remotes</span>)
+<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ecohealthalliance/yenpathy"</span>, <span class="kw">build_vignettes</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Pass <code><a href="reference/k_shortest_paths.html">k_shortest_paths()</a></code> a data frame (<code>graph_df</code>) with rows representing the edges of a graph, as well as a <code>from</code> and <code>to</code>, specifying starting and ending nodes in <code>graph_df</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(nycflights13)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(yenpathy)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">small_graph &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="dt">start =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="dt">end =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">6</span>),</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="dt">weight =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw"><a href="reference/k_shortest_paths.html">k_shortest_paths</a></span>(small_graph, <span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; [1] 1 2 7 3 6</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">nycflights13</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">yenpathy</span>)
+
+<span class="no">small_graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
+  <span class="kw">start</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">8</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">7</span>, <span class="fl">3</span>),
+  <span class="kw">end</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">2</span>, <span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">6</span>),
+  <span class="kw">weight</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1.5</span>, <span class="fl">5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)
+)
+
+<span class="fu"><a href="reference/k_shortest_paths.html">k_shortest_paths</a></span>(<span class="no">small_graph</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="fl">6</span>)
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 1 2 7 3 6</span></pre></div>
 <p>The function will return a list containing up to <code>k</code> (default 1) vectors representing paths through the graph.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/k_shortest_paths.html">k_shortest_paths</a></span>(small_graph,</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">                 <span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">6</span>, <span class="dt">k =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; [1] 1 2 7 3 6</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; [1] 1 4 5 6</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; [[3]]</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; [1] 1 8 6</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; [[4]]</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; [1] 1 6</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="reference/k_shortest_paths.html">k_shortest_paths</a></span>(<span class="no">small_graph</span>,
+                 <span class="kw">from</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">k</span> <span class="kw">=</span> <span class="fl">4</span>)
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 1 2 7 3 6</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; [1] 1 4 5 6</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt; [1] 1 8 6</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt; [1] 1 6</span></pre></div>
 <p>You can also pass an <code>edge_penalty</code>, a number which is added to all of the edge weights, effectively penalizing paths consisting of more edges.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/k_shortest_paths.html">k_shortest_paths</a></span>(small_graph,</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">                 <span class="dt">from =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">                 <span class="dt">to =</span> <span class="dv">6</span>,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">                 <span class="dt">k =</span> <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">                 <span class="dt">edge_penalty =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; [1] 1 6</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; [1] 1 8 6</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; [[3]]</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; [1] 1 4 5 6</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; [[4]]</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; [1] 1 2 7 3 6</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/k_shortest_paths.html">k_shortest_paths</a></span>(<span class="no">small_graph</span>,
+                 <span class="kw">from</span> <span class="kw">=</span> <span class="fl">1</span>,
+                 <span class="kw">to</span> <span class="kw">=</span> <span class="fl">6</span>,
+                 <span class="kw">k</span> <span class="kw">=</span> <span class="fl">4</span>,
+                 <span class="kw">edge_penalty</span> <span class="kw">=</span> <span class="fl">1</span>)
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 1 6</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; [1] 1 8 6</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt; [1] 1 4 5 6</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt; [1] 1 2 7 3 6</span></pre></div>
 <p>Further examples can be found in the Package’s vignette. This can be found on the package’s GitHub Pages site, or viewed in R;</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="st">"yenpathy"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; No vignettes found by browseVignettes("yenpathy")</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"using-yenpathy"</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; Warning: vignette 'using-yenpathy' not found</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="st">"yenpathy"</span>)
+<span class="co">#&gt; No vignettes found by browseVignettes("yenpathy")</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"using-yenpathy"</span>)
+<span class="co">#&gt; Warning: vignette 'using-yenpathy' not found</span></pre></div>
 </div>
 <div id="implementation" class="section level2">
 <h2 class="hasAnchor">
@@ -165,11 +165,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/ecohealthalliance/yenpathy">https://​github.com/​ecohealthalliance/​yenpathy</a>
+<li>Browse source code at <br><a href="https://github.com/ecohealthalliance/yenpathy/">https://​github.com/​ecohealthalliance/​yenpathy/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/ecohealthalliance/yenpathy/issues">https://​github.com/​ecohealthalliance/​yenpathy/​issues</a>
 </li>
@@ -185,7 +185,7 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Toph Allen <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4580-091X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
+<li>Toph Allen <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4580-091X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Yan Qi <br><small class="roles"> Author </small>  <br><small>(Original C++ implementation)</small>
 </li>
 <li><a href="authors.html">All authors...</a></li>
@@ -209,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
