@@ -13,7 +13,7 @@ coverage](https://codecov.io/gh/ecohealthalliance/yenpathy/branch/master/graph/b
 ## Overview
 
 **yenpathy** is an R package to quickly find *k* shortest paths through
-a weighted graph using [Yen’s
+a weighted directed graph using [Yen’s
 Algorithm](https://dx.doi.org/10.1287/mnsc.17.11.712). This algorithm
 has numerous applications in network analysis, such as transportation
 planning.
